@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-10-31T03:19:25.285Z</updated>
+  <updated>2014-10-31T07:58:17.572Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -116,8 +116,11 @@
     <link href="http://www.ifzer.com/2014/10/30/mac_dev_ready/"/>
     <id>http://www.ifzer.com/2014/10/30/mac_dev_ready/</id>
     <published>2014-10-29T16:25:58.000Z</published>
-    <updated>2014-10-29T16:21:46.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="准备翻译Github上的项目mac_dev_setup">准备翻译Github上的项目<a href="https://github.com/nicolashery/mac-dev-setup" target="_blank" rel="external">mac_dev_setup</a></h2>
+    <updated>2014-10-31T07:57:31.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="准备翻译Github上的项目mac_dev_setup">准备翻译Github上的项目<a href="https://github.com/nicolashery/mac-dev-setup" target="_blank" rel="external">mac_dev_setup</a></h3>
+<p>在线查看此文章<a href="http://www.sourabhbajaj.com/mac-setup/" target="_blank" rel="external">mac-setup</a></p>
+<h4 id="发现已经有人翻译一部分了，可以在此查看mac-dev-setup">发现已经有人翻译一部分了，可以在此查看<a href="http://aaaaaashu.gitbooks.io/mac-dev-setup/content/" target="_blank" rel="external">mac-dev-setup</a></h4>
+<h4 id="所以就不试着翻译了">所以就不试着翻译了</h4>
 ]]></content>
     
     
