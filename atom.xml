@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[ifzer]]></title>
+  <subtitle><![CDATA[every one to be ifzer]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.ifzer.com/"/>
+  <updated>2014-10-31T03:19:25.285Z</updated>
+  <id>http://www.ifzer.com/</id>
+  
+  <author>
+    <name><![CDATA[bangsen yin]]></name>
+    <email><![CDATA[020lilin@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[如何在MacOSX上安装Hadoop(how to install hadoop on mac os x)]]></title>
+    <link href="http://www.ifzer.com/2014/10/31/how_to_install_hadoop_on_mac_ox_x/"/>
+    <id>http://www.ifzer.com/2014/10/31/how_to_install_hadoop_on_mac_ox_x/</id>
+    <published>2014-10-30T16:25:58.000Z</published>
+    <updated>2014-10-31T01:45:49.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="如何在MacOSX上安装hadoop">如何在MacOSX上安装hadoop</h2>
+<ul>
+<li>其中一篇文章地址为<a href="http://importantfish.com/how-to-install-hadoop-on-mac-os-x/" target="_blank" rel="external">how-to-install-hadoop-on-mac-os-x</a></li>
+<li>另外一篇文章的地址为<a href="http://shayanmasood.com/blog/how-to-setup-hadoop-on-mac-os-x-10-9-mavericks/" target="_blank" rel="external">how-to-setup-hadoop-on-mac-os-x-10-9-mavericks</a>， </li>
+</ul>
+<p><strong>本文综合以上两篇文章，经过自己测试成功，于是写上这篇，以记录并希望可以帮助到其它人。</strong></p>
+<h3 id="简介">简介</h3>
+<p>Hadoop是Apache基金会下的项目，它能够处理非常大的数据集在分布式计算环境，它可以运行在三种模式下：</p>
+<ul>
+<li>独立式<blockquote>
+<p>Hadoop运行所有的东西在无后台的单独的JVM中，这种模式适合在开发阶段测试与Debug MapReduce程序</p>
+</blockquote>
+</li>
+<li>伪分布式<blockquote>
+<p>Hadoop做为后台应用运行在本地机器，模拟小集群</p>
+</blockquote>
+</li>
+<li>全分布式<blockquote>
+<p>Hadoop做为后台应用运行真实的集群电脑中</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="准备条件">准备条件</h3>
+<ol>
+<li><p><strong>Java</strong> 1.6.<em> + ———-<br>Hadoop 需要 Java 版本在1.6.</em> 或以上， 运行<code>java -version</code> 在你的终端中，它会显示你电脑上安装的Java版本：</p>
+<pre><code> ➜  Downloads  java -<span class="keyword">version</span>
+ java <span class="keyword">version</span> <span class="string">"1.7.0_45"</span>
+ Java(TM) SE Runtime Environment (build <span class="number">1.7</span>.<span class="number">0</span>_45-b18)
+ Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (build <span class="number">24.45</span>-b08, mixed <span class="built_in">mode</span>)
+</code></pre></li>
+<li><p><strong>SSH keys</strong><br>首先确保<code>远程登录(Remote Login)</code>是打开的，在<code>系统配置(System Preferences)-&gt;分享(Sharing)</code>中可以设置，如果在终端中输入<code>ssh localhost</code>有返回，则你已经配置好了SSH keys,如果没有，可新建：</p>
+<pre><code> ssh-keygen -t rsa -P <span class="string">""</span>
+</code></pre><p> 为了避免每次询问你的密码，可以授权你的公钥到本地：</p>
+<pre><code> cat <span class="variable">$HOME</span>/.ssh/id_rsa.pub <span class="input">&gt;&gt; <span class="variable">$HOME</span>/.ssh/authorized_keys</span>
+</code></pre><p> 现在应该可以使用SSH在你的电脑上了，执行：</p>
+<pre><code> <span class="title">ssh</span> localhost
+</code></pre></li>
+</ol>
+<h3 id="步骤1_安装homebrew,如果已经安装，跳到第二步">步骤1 安装homebrew,如果已经安装，跳到第二步</h3>
+<pre><code>ruby <span class="operator">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)</span>"</span>    
+</code></pre><h3 id="步骤2_使用brew_进行安装hadoop,_假定我们安装的是hadoop_2-5-1">步骤2 使用brew 进行安装hadoop, 假定我们安装的是hadoop 2.5.1</h3>
+<pre><code>brew <span class="operator"><span class="keyword">install</span> hadoop</span>
+</code></pre><h3 id="步骤3_配置hadoop">步骤3 配置hadoop</h3>
+<pre><code>cd <span class="regexp">/usr/</span>local<span class="regexp">/Cellar/</span>hadoop<span class="regexp">/2.5.1/</span>libexec<span class="regexp">/etc/</span>hadoop
+</code></pre><p>添加下面的行到 <code>hadoop-env.sh</code> :</p>
+<pre><code><span class="keyword">export</span> HADOOP_OPTS=<span class="string">"-Djava.security.krb5.realm=OX.AC.UK -Djava.security.krb5.kdc=kdc0.ox.ac.uk:kdc1.ox.ac.uk"</span>
+</code></pre><p>添加下面的行到<code>core-site.xml</code></p>
+<pre><code><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">property</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">value</span>&gt;</span>/tmp/hadoop-${user.name}<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">description</span>&gt;</span>A base for other temporary directories.<span class="tag">&lt;/<span class="title">description</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
+<span class="tag">&lt;<span class="title">property</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">name</span>&gt;</span>fs.default.name<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+   <span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://localhost:9000<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+ <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span>
+</code></pre><p>添加下面的行到<code>hdfs-site.xml</code></p>
+<pre><code><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">property</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">value</span>&gt;</span>1<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span>
+</code></pre><p>添加下面的行到<code>mapred-site.xml</code></p>
+<pre><code><span class="tag">&lt;<span class="title">configuration</span>&gt;</span>
+  <span class="tag">&lt;<span class="title">property</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">name</span>&gt;</span>mapred.job.tracker<span class="tag">&lt;/<span class="title">name</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">value</span>&gt;</span>localhost:9001<span class="tag">&lt;/<span class="title">value</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">property</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">configuration</span>&gt;</span>
+</code></pre><h3 id="绝大部分已经准备好了">绝大部分已经准备好了</h3>
+<p>我们必须格式化新安装的HDFS在我们启动运行后台程序前，格式并创新空的文件系统通过创建存储目录和初始化元数据。执行：</p>
+<pre><code>hadoop namenode -<span class="built_in">format</span>
+</code></pre><h3 id="启动后台程序">启动后台程序</h3>
+<p>确保你已经可以SSH到你的本机，通过<code>start-dfs.sh</code>启动HDFS，<code>start-all.sh</code>启动MapReduce</p>
+<h3 id="监视">监视</h3>
+<p>我们可以监视HDFS，MapReduce<br>HDFS Administrator : <a href="http://localhost:50070" target="_blank" rel="external">http://localhost:50070</a>(在此次执行中可以)</p>
+<p>MapReduce Administrator : <a href="http://localhost:50030" target="_blank" rel="external">http://localhost:50030</a>(访问不了，以后找到原因再补上)</p>
+]]></content>
+    
+    
+      <category term="mac" scheme="http://www.ifzer.com/tags/mac/"/>
+    
+      <category term="os" scheme="http://www.ifzer.com/tags/os/"/>
+    
+      <category term="mac" scheme="http://www.ifzer.com/categories/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mac develop setup]]></title>
+    <link href="http://www.ifzer.com/2014/10/30/mac_dev_ready/"/>
+    <id>http://www.ifzer.com/2014/10/30/mac_dev_ready/</id>
+    <published>2014-10-29T16:25:58.000Z</published>
+    <updated>2014-10-29T16:21:46.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="准备翻译Github上的项目mac_dev_setup">准备翻译Github上的项目<a href="https://github.com/nicolashery/mac-dev-setup" target="_blank" rel="external">mac_dev_setup</a></h2>
+]]></content>
+    
+    
+      <category term="mac" scheme="http://www.ifzer.com/tags/mac/"/>
+    
+      <category term="mac" scheme="http://www.ifzer.com/categories/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[学习CSS]]></title>
+    <link href="http://www.ifzer.com/2014/10/29/learn_css_layout/"/>
+    <id>http://www.ifzer.com/2014/10/29/learn_css_layout/</id>
+    <published>2014-10-29T15:55:58.000Z</published>
+    <updated>2014-10-29T16:10:47.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="CSS基础">CSS基础</h2>
+<p>今天在Github上看到一个好的项目<a href="https://github.com/incompl/csslayoutsite" target="_blank" rel="external">csslayoutsite</a>，里面有好多的开发方面的知识，这个网站是<a href="http://zh.learnlayout.com" target="_blank" rel="external">学习CSS布局</a>， 跟着一个一个点击下一页，会学习到CSS的相关知识， 在这里可以看到它的目录<img src="http://jjyy.qiniudn.com/cssScreen%20Shot%202014-10-30%20at%2000.06.48.png" alt="image">， 我们可以学习到上面目录上的知识，快快进去上面的网站学习吧。</p>
+]]></content>
+    
+    
+      <category term="css" scheme="http://www.ifzer.com/tags/css/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="learn" scheme="http://www.ifzer.com/categories/learn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[top command on bash]]></title>
+    <link href="http://www.ifzer.com/2014/10/21/command_top/"/>
+    <id>http://www.ifzer.com/2014/10/21/command_top/</id>
+    <published>2014-10-21T09:25:58.000Z</published>
+    <updated>2014-10-21T09:48:17.000Z</updated>
+    <content type="html"><![CDATA[<p>下午使用了Top，来查看后台提取数据的内存使用情况，一边看着数据的变化，另外一行行的看着man手册的说明， 所以记录下Top的常用命令。</p>
+<h3 id="交互模式">交互模式</h3>
+<p>在Bash中输入<code>top</code>, 这样就进入了交互模式， 交互模式中最常用的是<code>o</code>, <code>O</code>, <code>c</code>。</p>
+<p><code>o</code>我的理解的order ， 以哪个进行排序， 按了<code>o</code>以后， 可排序的有好多，我常用的为，<code>mem, cpu, th</code>,th 表示线程thread, 其它还有好多可以使用， 如果在<code>mem</code>前加上+， 则表示按从小到大的顺序排序， 如果加上-， 则表示按从大到小的顺序排序。</p>
+<p><code>O</code>, 表示第二个需要排序的字段， 使用方法与<code>o</code>的一样</p>
+<p><code>c</code>， 计算模式， 可选项有<code>a,d,e,n</code>, 默认为n，这一块不理解</p>
+]]></content>
+    
+    
+      <category term="bash" scheme="http://www.ifzer.com/tags/bash/"/>
+    
+      <category term="commands" scheme="http://www.ifzer.com/tags/commands/"/>
+    
+      <category term="bash" scheme="http://www.ifzer.com/categories/bash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[忍者应用结构的剖析-获取开始之三]]></title>
+    <link href="http://www.ifzer.com/2014/09/17/ninja_anatomy/"/>
+    <id>http://www.ifzer.com/2014/09/17/ninja_anatomy/</id>
+    <published>2014-09-17T05:35:58.000Z</published>
+    <updated>2014-09-17T06:19:51.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="介绍">介绍</h3>
+<p>忍者做了许多事情，通过约定优于配置。如果事情在正确的地方它将自动工作。</p>
+<p>例如路由为你的应用应该总是在conf/Routes.java.并且html视图总是映射到确定的控制器方法通过它们对应的目录结构。</p>
+<p>约定被详细解释在接下来的文档部分。</p>
+<h3 id="一个例子项目">一个例子项目</h3>
+<p>下面的树显示一个例子项目用一些解释来进行说明。项目是完整的项目通过JPA进行数据库访问， 数据库迁移和高级特性如过滤器和参数提取器。</p>
+<pre><code>├── pom.xml                                     // <span class="type">Instructions</span> about dependencies <span class="keyword">and</span> the build (<span class="type">Maven</span>) //指令关于项目的依赖与构建， <span class="type">Maven</span>的项目对象模型
+└── src
+    ├── main
+    │   ├── java
+    │   │   ├── <span class="type">META</span>-<span class="type">INF</span>
+    │   │   │   └── persistence.xml             // <span class="type">Contains</span> informations how to access databases via <span class="type">JPA</span>  //包含如何通过<span class="type">JPA</span>访问数据库的配置信息
+    │   │   ├── assets                          // <span class="type">Static</span> assets <span class="keyword">of</span> your application  //静态的资料为你的应用程序 
+    │   │   │   └── css
+    │   │   │       └── custom.css
+    │   │   ├── conf 
+    │   │   │   ├── <span class="type">Module</span>.java                 // <span class="type">Dependency</span> injection definitions via <span class="type">Guice</span> (<span class="type">Optional</span>) //通过<span class="type">Google</span> 的<span class="type">Guice</span>进行依赖注入的定义， <span class="type">Guice</span>是可选的， 你也可以使用其它的依赖注入的组件， 如<span class="type">Spring</span>
+    │   │   │   ├── <span class="type">Routes</span>.java                 // <span class="type">Contains</span> all routes <span class="keyword">of</span> your application <span class="keyword">in</span> one location //包含你应用的所有路由配置在这一个文件中
+    │   │   │   ├── <span class="type">ServletModule</span>.java          // <span class="type">Integration</span> <span class="keyword">of</span> arbitrary servlet filters <span class="keyword">and</span> mappings (<span class="type">Optional</span>) //集成任意的servlet过滤器与映射（可选的）
+    │   │   │   ├── <span class="type">StartupActions</span>.java         // <span class="type">Customization</span> <span class="keyword">of</span> application startup (<span class="type">Optional</span>) //自定义应用启动时的动作
+    │   │   │   ├── application.conf            // <span class="type">Configuration</span> <span class="keyword">for</span> test dev <span class="keyword">and</span> production mode //应用程序的配置文件， 可以配置test, dev, production等各种模式， 方便开发
+    │   │   │   ├── messages.properties         // <span class="number">18</span>n messages //国际化文件
+    │   │   │   └── messages_de.properties
+    │   │   ├── controllers                     // <span class="type">Controllers</span> will handle the actual request <span class="keyword">and</span> <span class="keyword">do</span> something //控制器处理实际的请求并处理业务
+    │   │   │   ├── <span class="type">ApiController</span>.java
+    │   │   │   ├── <span class="type">ApplicationController</span>.java
+    │   │   │   ├── <span class="type">ArticleController</span>.java
+    │   │   │   └── <span class="type">LoginLogoutController</span>.java
+    │   │   ├── dao                             // <span class="type">Database</span> access via <span class="type">DAO</span> objects <span class="keyword">and</span> <span class="keyword">not</span> <span class="keyword">in</span> the controller //数据库访问层
+    │   │   │   ├── <span class="type">ArticleDao</span>.java
+    │   │   │   ├── <span class="type">SetupDao</span>.java
+    │   │   │   └── <span class="type">UserDao</span>.java
+    │   │   ├── db                              // <span class="type">Database</span> migrations <span class="keyword">when</span> dealing <span class="keyword">with</span> <span class="type">RDBMS</span> (<span class="type">Flyway</span>)//使用<span class="type">RDBMS</span>（<span class="type">Flyway</span>）进行数据库的迁移
+    │   │   │   └── migration
+    │   │   │       ├── <span class="type">V1__</span>.sql
+    │   │   │       └── <span class="type">V2__</span>.sql
+    │   │   ├── ehcache.xml                     // <span class="type">Configuration</span> <span class="keyword">for</span> ehcache //配置缓存 
+    │   │   ├── etc
+    │   │   │   ├── <span class="type">LoggedInUser</span>.java
+    │   │   │   └── <span class="type">LoggedInUserExtractor</span>.java  // <span class="type">Argument</span> extractors <span class="keyword">for</span> controller methods //参数提取器为控制器的方法
+    │   │   ├── filters
+    │   │   │   └── <span class="type">LoggerFilter</span>.java           // <span class="type">Filter</span> to filter the request <span class="keyword">in</span> the controller // 过滤器在控制器中过滤请求
+    │   │   ├── logback.xml                     // <span class="type">Logging</span> configuration via logback / slf4j //通过logback/ slf4j 来进行日志的配置
+    │   │   ├── models                          // <span class="type">Some</span> models that map to your relational database //一些数据模型映射到关系数据库
+    │   │   │   ├── <span class="type">Article</span>.java
+    │   │   │   ├── <span class="type">ArticleDto</span>.java
+    │   │   │   ├── <span class="type">ArticlesDto</span>.java
+    │   │   │   └── <span class="type">User</span>.java
+    │   │   └── views                           // html views - always map to a controller <span class="keyword">and</span> a <span class="keyword">method</span> // html视图-总是映射到控制器中的一个方法
+    │   │       ├── <span class="type">ApplicationController</span>
+    │   │       │   ├── index.ftl.html          // <span class="type">Maps</span> to controller <span class="string">"ApplicationController"</span> <span class="keyword">and</span> <span class="keyword">method</span> <span class="string">"index"</span> //被映射到控制器-<span class="string">"ApplicationController"</span>， 映射到其中的方法名为 <span class="string">"index"</span> 的方法
+    │   │       │   └── setup.ftl.html
+    │   │       ├── <span class="type">ArticleController</span>
+    │   │       │   ├── articleNew.ftl.html
+    │   │       │   └── articleShow.ftl.html
+    │   │       ├── <span class="type">LoginLogoutController</span>
+    │   │       │   ├── login.ftl.html
+    │   │       │   └── logout.ftl.html
+    │   │       ├── layout
+    │   │       │   ├── defaultLayout.ftl.html
+    │   │       │   ├── footer.ftl.html
+    │   │       │   └── header.ftl.html
+    │   │       └── system                      // <span class="type">Error</span> html views. <span class="type">Can</span> be customized to output custom error pages //出错的html视图。可以自定义输出的错误页面
+    │   │           ├── <span class="number">403</span>forbidden.ftl.html
+    │   │           └── <span class="number">404</span>notFound.ftl.html
+    │   ├── resources
+    │   └── webapp
+    │       └── <span class="type">WEB</span>-<span class="type">INF</span>
+    │           └── web.xml                    // <span class="type">Needed</span> <span class="keyword">for</span> servlet containers to start up <span class="type">Ninja</span> //servlet容器需要以启动忍者
+    └── test
+        ├── java
+        │   └── controllers                    // <span class="type">Different</span> tests <span class="keyword">for</span> your application // 不同的测试为你的应用
+        │       ├── <span class="type">ApiControllerDocTest</span>.java
+        │       ├── <span class="type">ApiControllerDocTesterTest</span>.java
+        │       ├── <span class="type">ApiControllerMockTest</span>.java
+        │       ├── <span class="type">ApiControllerTest</span>.java
+        │       ├── <span class="type">ApplicationControllerFluentLeniumTest</span>.java
+        │       ├── <span class="type">ApplicationControllerTest</span>.java
+        │       ├── <span class="type">LoginLogoutControllerTest</span>.java
+        │       └── <span class="type">RoutesTest</span>.java
+        └── resources
+            └── test_for_upload.txt    
+</code></pre>]]></content>
+    
+    
+      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[设置你的IDE-获取开始之二]]></title>
+    <link href="http://www.ifzer.com/2014/09/17/ninja_setup_your_ide/"/>
+    <id>http://www.ifzer.com/2014/09/17/ninja_setup_your_ide/</id>
+    <published>2014-09-17T03:35:58.000Z</published>
+    <updated>2014-09-17T06:19:11.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="只需要导入它">只需要导入它</h3>
+<p>通过原型创建的忍者应用只是一个简单普通的Maven项目。意味首你可以导入项目到现代的IDE中， 如Eclipse， Netbeans，IntelliJ等等</p>
+<p>如Eclipse可以通过执行：<br><code>mvn eclipse:clean eclipse:eclipse</code><br>然后导入项目到Eclipse中</p>
+<p>其它的请参考Maven</p>
+<h3 id="一些捕捉。。。。。。">一些捕捉。。。。。。</h3>
+<p>忍者的SuperDevMode依赖于一个外部的编译器来编译你的原文件。本质的流程如下：</p>
+<ul>
+<li>你可以运行忍者的SuperDevMode通过<code>mvn ninja:run</code></li>
+<li>你在IDE中更改你的java文件</li>
+<li>你的IDE获取到变化并且重新编译文件到.class文件中</li>
+<li>忍者的SuperDevMode检测到重新编译的文件并马上显示你应用的最新版本在<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>.</li>
+</ul>
+<p>非常好。但是这个捕捉是在你的IDE必须重新编译这些文件。如果你的IDE不重新编译文件， 忍者的SuperDevMode将不会有效。</p>
+<p>幸运的是基于IDE的工具做了这些工作， 如Eclipse (“Automatically build project 自动构建项目”), Netbeans (“Compile on Save 保存时进行编译”) and IntelliJ 12+. (<a href="http://stackoverflow.com/questions/12744303/intellij-idea-java-classes-not-auto-compiling-on-save" target="_blank" rel="external">http://stackoverflow.com/questions/12744303/intellij-idea-java-classes-not-auto-compiling-on-save</a>).</p>
+<h4 id="注释">注释</h4>
+<blockquote>
+<p>Sometimes Ninja’s SuperDevMode does no longer pick up changes you made. In many cases automatic compilation by the IDE is broken. If you run into that problem it helps to “clean and build” the project from within your IDE.</p>
+</blockquote>
+<p>有时候忍者的SuperDevMode不再获取你做的修改，在许多情况自动编译通过IDE是被打断的。如果你在遇到这样的问题， 可以通过在IDE中点击”clean and build”项目来解决些问题。</p>
+]]></content>
+    
+    
+      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用忍者创建你的第一个应用-获取开始之一]]></title>
+    <link href="http://www.ifzer.com/2014/09/17/ninja_your_first_app/"/>
+    <id>http://www.ifzer.com/2014/09/17/ninja_your_first_app/</id>
+    <published>2014-09-17T03:25:58.000Z</published>
+    <updated>2014-10-21T09:21:53.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="创建第一个应用">创建第一个应用</h3>
+<p>忍者的特性也被称为“Maven archetypes(原型)”。这些原型是蓝图欢允许你生成一个新的项目通过一个单独的命令。</p>
+<p>在忍者的情况中我们建议创建新的忍者项目基于我们的原型“ninja-servlet-archetype-simple”。</p>
+<p>你可以使用原型作为开始点来创建你自己的应用。</p>
+<p>使用如下的命令来做如上的事情：</p>
+<pre><code>mvn archetype:generate <span class="variable">-DarchetypeGroupId=</span>org.ninjaframework <span class="variable">-DarchetypeArtifactId=</span>ninja-servlet-archetype-simple
+</code></pre><p>请输入有意义的值为“groupId”和“artifactId”并且让Maven生成你的第一个忍者项目。&gt;</p>
+<p>在完成生成的后，更改你的项目目录并执行：</p>
+<pre><code><span class="built_in">cd</span> MY_INSTALLED_PROJECT
+mvn clean install     <span class="comment">// 首次生成java类文件</span>
+mvn ninja:run         <span class="comment">//  启动忍者的SuperDevMode 模式</span>
+</code></pre><p>启动忍者的SuperDevMode模式。在浏览器上打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a>.你会看到忍者的救命项目已经在运行。以上就是所有你需要做的来进行创建你的第一个忍者应用。</p>
+<h4 id="注释">注释</h4>
+<p>SuperDevMode：</p>
+<blockquote>
+<p>We think that fast and responsive development cycles are a key success factor for software projects. SuperDevMode is our answer to that challenge. Say goodbye to long and time consuming deployment cycles while developing.</p>
+</blockquote>
+<p>我们认为快速响应的开发周期是软件成功的关键因素之一。SuperDevMode是我们的答案为这样的挑战，是时候告别漫长而耗时的部署周期了。</p>
+]]></content>
+    
+    
+      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[入门与安装忍者-获取开始之零]]></title>
+    <link href="http://www.ifzer.com/2014/09/17/ninja_getting_start/"/>
+    <id>http://www.ifzer.com/2014/09/17/ninja_getting_start/</id>
+    <published>2014-09-17T01:25:58.000Z</published>
+    <updated>2014-09-17T06:24:05.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="没有太多的安装">没有太多的安装</h3>
+<p>每个好的手册都需要“安装软件”的部分。但是说真的， 这里没有太多的安装。忍者只需要两个工具就可以运行了：<code>Java</code>(从1.7版本开始) 和 <code>Maven</code>(从3.1.1)。如果你已经安装了这些工具，你可以跳过这篇了。</p>
+<h3 id="安装Java">安装Java</h3>
+<p>忍者使用Java做为编程语言，java虚拟机运行你的应用程序，你必须确保你的java版本为1.7</p>
+<p>你可以检查你的版本通过执行下面的命令：<br><code>java -version</code></p>
+<p>…上面的将输出如下的信息：</p>
+<pre><code>java <span class="keyword">version</span> <span class="string">"1.7.0_45"</span>
+Java(TM) SE Runtime Environment (build <span class="number">1.7</span>.<span class="number">0</span>_45-b18)
+Java HotSpot(TM) <span class="number">64</span>-Bit Server VM (build <span class="number">24.45</span>-b08, mixed <span class="built_in">mode</span>)
+</code></pre><p>如你所见我的机器正在运行java 1.7.0_45, 如果你正在使用的是旧版本， 请安装最新的java版本从：<br><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a></p>
+<h3 id="安装Maven">安装Maven</h3>
+<p>忍者使用了java的一个工具叫做Maven来构建和建立新的项目。Maven被用于多数基于java 的项目中， 并且很有可能你已经安装了它在你的电脑上。让我们检查下Maven是否已经安装了：<br><code>mvn -v</code></p>
+<p>这条命令将会打印出我安装的Maven的版本信息。如下：</p>
+<pre><code>Apache Maven <span class="number">3.1</span><span class="number">.1</span> (<span class="number">0728685237757</span>ffbf44136acec0402957f723d9a; <span class="number">2013</span>-<span class="number">09</span>-<span class="number">17</span> <span class="number">23</span>:<span class="number">22</span>:<span class="number">22</span>+<span class="number">0800</span>)
+Maven home: /Users/apple/Documents/develop_tool/apache-maven-<span class="number">3.1</span><span class="number">.1</span>
+Java <span class="built_in">version</span>: <span class="number">1.7</span><span class="number">.0</span>_45, vendor: Oracle Corporation
+Java home: /Library/Java/JavaVirtualMachines/jdk1<span class="number">.7</span><span class="number">.0</span>_45.jdk/Contents/Home/jre
+Default locale: en_US, <span class="built_in">platform</span> encoding: UTF-<span class="number">8</span>
+OS name: <span class="string">"mac os x"</span>, <span class="built_in">version</span>: <span class="string">"10.9.4"</span>, arch: <span class="string">"x86_64"</span>, family: <span class="string">"mac"</span>
+</code></pre><p>确保你已经安装了Maven 3 或更高的。如果Maven 命令在你的电脑上是无效的， 请按下面的指南进行安装 ： <a href="http://maven.apache.org/guides/getting-started" target="_blank" rel="external">http://maven.apache.org/guides/getting-started</a></p>
+]]></content>
+    
+    
+      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[基本概念：路由-控制器-视图]]></title>
+    <link href="http://www.ifzer.com/2014/09/16/ninja-%E5%BF%8D%E8%80%85java%20web%E6%A1%86%E6%9E%B6-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%EF%BC%9A%E8%B7%AF%E7%94%B1-%E6%8E%A7%E5%88%B6%E5%99%A8-%E8%A7%86%E5%9B%BE/"/>
+    <id>http://www.ifzer.com/2014/09/16/ninja-忍者java web框架-基本概念：路由-控制器-视图/</id>
+    <published>2014-09-16T04:25:58.000Z</published>
+    <updated>2014-09-17T01:41:31.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="路由_a_route">路由 a route</h3>
+<p>路由文件是每个http请求的入口。在这里必须映射一个URL像 /index.html 或者 /person.json 到一些东西在你的应该内部来实际处理些事情。这就是被定义的路由文件。</p>
+<p>按约定每个忍者应用饮食如下的java文件：<code>conf/Routes.java. Routes.java</code> 包含所有的路由为你的应用。</p>
+<p>一个最小的路由文件看起来如下：</p>
+<pre><code>    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Routes</span> <span class="keyword">implements</span> <span class="title">ApplicationRoutes</span> </span>{
+
+    <span class="annotation">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span>(Router router) {
+
+        router.GET().route(<span class="string">"/"</span>).with(ApplicationController.class, <span class="string">"index"</span>);
+
+    }
+}
+</code></pre><p>上面的代码意味着请求到服务器的 <code>/</code> 路径 被 <code>ApplicationController</code> 这个控制器类的 <code>index</code> 方法处理， 但是 <code>ApplicationController</code> 长成什么样呢？</p>
+<hr>
+<h3 id="控制器_a_controller">控制器 a controller</h3>
+<p>控制器只是个简单的java类并且应该被放在package <code>controller</code> 下面<br>    package controllers;</p>
+<pre><code>@Singleton
+<span class="keyword">public</span> <span class="keyword">class</span> ApplicationController {       
+
+    <span class="keyword">public</span> Result <span class="title">index</span>() {
+        <span class="keyword">return</span> Results.html();
+
+    }
+}
+</code></pre><p>控制器方法总是会返回一个 <code>Result</code> 。 <code>Results</code>(多了个s)只是一个小的工具类用来帮助我们更加简单的创建结果。在上例中，应用控制结果为html响应。</p>
+<p>现在我们得到了等式的一边-从忍者到路由到我们的控制器。但是忍者怎么生成这html的输出？</p>
+<h3 id="视图_a_view">视图 a view</h3>
+<p>视图被声明在包 <code>views</code>中。按约定视图与控制器的对应关系总是被放置在 <code>views/CONTROLLER_NAME/METHOD_NAME</code> 。 在我们的例子，这视图将被找到从 <code>views/ApplicationController/index.ftl.html</code> 。</p>
+<p>一个真实的简单视图可以如下：<br><code>&lt;html&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello world&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></p>
+<h3 id="总结">总结</h3>
+<p>这是忍者的基本概念， 并且这是所有你需要启动你自己的应用。 忍者的基本概念总是 <code>Route =&gt; Controller =&gt; View</code> 。</p>
+<p>当然视图不仅可以表示为html, 也可以为json 或 xml。 当然你也可以表示你的模式用你的视图。更多关于视图表示的在接下来的文档部分。</p>
+]]></content>
+    
+    
+      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
+    
+      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
+    
+      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://www.ifzer.com/2014/09/16/hello-world/"/>
+    <id>http://www.ifzer.com/2014/09/16/hello-world/</id>
+    <published>2014-09-16T03:09:56.000Z</published>
+    <updated>2014-06-20T06:27:20.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/tommy351/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
+<h3 id="Create_a_new_post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[小黑屋汉化版文字游戏]]></title>
+    <link href="http://www.ifzer.com/2014/07/09/xiaoheiwu%E5%B0%8F%E9%BB%91%E5%B1%8B%E6%B1%89%E5%8C%96%E7%89%88%E6%96%87%E5%AD%97%E6%B8%B8%E6%88%8F/"/>
+    <id>http://www.ifzer.com/2014/07/09/xiaoheiwu小黑屋汉化版文字游戏/</id>
+    <published>2014-07-09T14:30:51.000Z</published>
+    <updated>2014-07-09T14:31:21.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="小黑屋汉化版文字游戏">小黑屋汉化版文字游戏</h2>
+<p>这个游戏是在github上发现的,这里是游戏的源代码<a href="https://github.com/Continuities/adarkroom" target="_blank" rel="external">sourcecode</a>， 中文版游戏地址为<a href="http://adarkroom.doublespeakgames.com/?lang=cn" target="_blank" rel="external">小黑屋</a> ， 刚开始玩这样的游戏可能还不习惯， 可是慢慢的就会发现这个游戏其实是挺好玩的。</p>
+<p><code>下面的是引用的**介绍**</code>：<br><!--this is the comment --></p>
+<blockquote>
+<p>当初英文版小黑屋刚刚出现的时候，我就小玩了一会，但是完全不明白这款游戏好玩在什么地方，觉得索然无味，但是汉化版出来我才发现这是一款非常不错的经营类游戏，内容十分丰富，到了后面还有地图探索等RPG要素，最后竟然还可以操控飞船飞往火星，怪不得当初能看懂英文的小伙伴们纷纷称赞这款游戏~</p>
+<p><strong>PS：白屏玩不了的，请换用非IE内核的浏览器，如谷歌浏览器。</strong></p>
+</blockquote>
+<p>就是这样的一款<strong>RPG</strong>的游戏， 个人非常喜欢RPG类的游戏， 所以推荐下这个游戏！<br><img src="http://jjyy.qiniudn.com/xiaoheiwuScreen%20Shot%202014-07-09%20at%2022.07.10.png" alt="游戏中期的图片"><br><img src="http://jjyy.qiniudn.com/xiaoheiwuScreen%20Shot%202014-07-09%20at%2022.03.15.png" alt="通关的图片"></p>
+<p>这个是我的游戏中期部分的存档，可以通过游戏中的 <strong><code>存档</code></strong> -&gt; <strong><code>导入</code></strong>，然后粘贴以下的<strong><code>代码</code></strong>:</p>
+<pre><code><span class="variable">eyJ2ZXJzaW9uIjoxLjMsImZlYXR1cmVzIjp7ImxvY2F0aW9uIjp7InJvb20iOnRydWUsIm91dHNpZGUiOnRydWUsIndvcmxkIjp0cnVlfX0sInN0b3JlcyI6eyJ3b29kIjozOTUsInNjYWxlcyI6NTgsImZ1ciI6MjI1LCJiYWl0IjoxNjksIm1lYXQiOjcxMCwidGVldGgiOjEyNiwiY2xvdGgiOjE3LCJjdXJlZCBtZWF0IjozMTAsImxlYXRoZXIiOjI0OCwiY29tcGFzcyI6MSwiY2hhcm0iOjAsInRvcmNoIjoyNiwiYm9uZSBzcGVhciI6MCwid2F0ZXJza2luIjoxLCJydWNrc2FjayI6MSwibCBhcm1vdXIiOjF9LCJjaGFyYWN0ZXIiOnsicHVuY2hlcyI6MSwic3RhcnZlZCI6MX0sImluY29tZSI6eyJnYXRoZXJlciI6eyJkZWxheSI6MTAsInN0b3JlcyI6eyJ3b29kIjozN30sInRpbWVMZWZ0IjoxMH0sImJ1aWxkZXIiOnsiZGVsYXkiOjEwLCJzdG9yZXMiOnsid29vZCI6Mn0sInRpbWVMZWZ0Ijo5fSwiaHVudGVyIjp7ImRlbGF5IjoxMCwic3RvcmVzIjp7ImZ1ciI6NSwibWVhdCI6NX0sInRpbWVMZWZ0IjoxMH0sInRyYXBwZXIiOnsiZGVsYXkiOjEwLCJzdG9yZXMiOnsibWVhdCI6LTEwLCJiYWl0IjoxMH0sInRpbWVMZWZ0IjoxMH0sImNoYXJjdXRpZXIiOnsiZGVsYXkiOjEwLCJzdG9yZXMiOnsibWVhdCI6LTUwLCJ3b29kIjotNTAsImN1cmVkIG1lYXQiOjEwfSwidGltZUxlZnQiOjd9LCJ0YW5uZXIiOnsiZGVsYXkiOjEwLCJzdG9yZXMiOnsiZnVyIjotNTAsImxlYXRoZXIiOjEwfSwidGltZUxlZnQiOjh9fSwidGltZXJzIjp7fSwiZ2FtZSI6eyJidWlsZGVyIjp7ImxldmVsIjo0fSwiYnVpbGRpbmdzIjp7InRyYXAiOjEwLCJjYXJ0IjoxLCJodXQiOjIwLCJsb2RnZSI6MSwic21va2Vob3VzZSI6MSwidGFubmVyeSI6MSwidHJhZGluZyBwb3N0IjoxLCJ3b3Jrc2hvcCI6MX0sInBvcHVsYXRpb24iOjc3LCJ3b3JrZXJzIjp7Imh1bnRlciI6MTAsInRyYXBwZXIiOjEwLCJjaGFyY3V0aWVyIjoxMCwidGFubmVyIjoxMH0sIm91dHNpZGUiOnsic2VlbkZvcmVzdCI6dHJ1ZX0sIndvcmxkIjp7Im1hcCI6W1siOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIkYiLCIsIiwiLCIsIlkiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIlkiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCJGIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCI7IiwiOyIsIjsiLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCI7IiwiOyIsIjsiLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCI7IiwiLCIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiSCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIiwiLCIsIiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCJTIiwiLiIsIkIiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiQiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCJCIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIkIiLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIiwiLCIsIiwiLCIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCJPIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiTyIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiLCIsIkIiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIsIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIlkiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCJZIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiTSIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiTyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCIuIiwiLiIsIiwiLCJWIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCJIIiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCIuIiwiLiIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIlkiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCJPIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIiwiLCIsIiwiLiIsIi4iLCJJIiwiLCIsIiwiLCIsIiwiViIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiQiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiWSJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiQiIsIiwiLCIsIiwiLCIsIiwiLCJDIiwiOyIsIjsiLCI7IiwiLCIsIkgiLCIsIiwiOyIsIjsiLCI7IiwiQSIsIjsiLCIsIiwiSCIsIi4iLCJWIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCJCIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiTyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiSCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIuIiwiLiIsIi4iLCIuIiwiViIsIi4iLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIlYiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiTyIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiWSIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIlciLCIsIiwiSCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiSCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiWSIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIkYiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiWSIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiWSIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiSCJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiSCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiRiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiTyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIkIiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCJPIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiWSIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIjsiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCJZIiwiOyIsIiwiLCIsIiwiLCIsIjsiLCIsIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyIsIk8iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiWSIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIk8iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiWSIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiSCIsIi4iLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCJZIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiWSIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCI7IiwiOyIsIjsiLCIuIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiJdLFsiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIlkiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIsIiwiLCIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiOyIsIjsiLCI7IiwiOyJdLFsiOyIsIjsiLCI7IiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCIsIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIlkiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIkIiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiOyIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiOyJdLFsiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIi4iLCIuIiwiLiIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCJGIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiWSIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCJZIiwiLCIsIiwiLCIsIiwiLCIsIiwiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIjsiLCI7IiwiOyIsIiwiLCIsIiwiLCIsIjsiLCI7IiwiLiJdXSwibWFzayI6W1tudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLHRydWUsdHJ1ZSx0cnVlLHRydWVdLFtudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWVdLFtudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWVdLFtudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZSx0cnVlLG51bGwsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWVdLFtudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZV0sW251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCx0cnVlLHRydWUsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZSx0cnVlLHRydWUsdHJ1ZSx0cnVlXSxbbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGwsdHJ1ZV0sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW10sW11dfX0sInBsYXlTdGF0cyI6e30sInByZXZpb3VzIjp7fX0=</span>
+</code></pre><p>下面的是过通关后的存档<strong><code>代码</code></strong></p>
+<pre><code><span class="title">eyJwcmV2aW91cyI6eyJzdG9yZXMiOlsxMzE3LjI4NTcxNDI4NTcxNDIsNTE3NC43NSwzLjE2NjY2NjY2NjY2NjY2NjUsNDAzLjgsNzU2LG51bGwsNTAyMiwxODIuODU3MTQyODU3MTQyODYsNjY5LDEzNS4zNzUsMjQ4OS4zMzMzMzMzMzMzMzM1LDI0NTIuMzMzMzMzMzMzMzMzNSw0LjMzMzMzMzMzMzMzMzMzMywxNCwwLjUsMSw2LDAsbnVsbCwwLjUsMjg4LjIsMC45MiwwLjAzNDQ4Mjc1ODYyMDY4OTY1NSwwXSwic2NvcmUiOjE0NDc2NH19</span>            
+</code></pre>]]></content>
+    
+    
+      <category term="game" scheme="http://www.ifzer.com/tags/game/"/>
+    
+      <category term="RPG" scheme="http://www.ifzer.com/tags/RPG/"/>
+    
+      <category term="game" scheme="http://www.ifzer.com/categories/game/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[古剑奇谭电视剧]]></title>
+    <link href="http://www.ifzer.com/2014/07/03/%E5%8F%A4%E5%89%91%E5%A5%87%E8%B0%AD%E7%94%B5%E8%A7%86%E5%89%A7/"/>
+    <id>http://www.ifzer.com/2014/07/03/古剑奇谭电视剧/</id>
+    <published>2014-07-03T07:14:47.000Z</published>
+    <updated>2014-07-03T07:15:48.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="古剑奇谭电视剧">古剑奇谭电视剧</h1>
+<h3 id="古剑奇谭-琴心剑魄今何在">古剑奇谭-琴心剑魄今何在</h3>
+<blockquote>
+<p>“七弦琴鸣，梦回太古。灵霄剑吟，书此奇谭。”</p>
+</blockquote>
+<p>《古剑奇谭：琴心剑魄今何在》是“古剑奇谭”系列初代作品，2010年7月10日正式发行。<br>初代的游戏主题，正是<strong>“重生”</strong>二字。道家讲求一切“顺其自然”，“重生”则无疑是逆天而行之事——那是一种在烈焰中蜕变的过程，是一种异常艰辛的努力和追寻。相比肉身的死而复生，“重生”二字更多指代灵魂与情感的新生。<img src="http://jjyy.qiniudn.com/gjqt1938569_175.jpg" alt="封面"></p>
+<h3 id="背景故事">背景故事</h3>
+<p>原是守护焚寂封印的南疆乌蒙灵谷大巫祝之子。幼年时偷跑出村，结识了想夺取焚寂剑灵的欧阳少恭，无意中泄露了乌蒙灵谷结界的秘密，让乌蒙灵谷惨遭灭族。而他自己也在封印焚寂的冰炎洞里被杀死。后韩休宁为守护焚寂，强行将焚寂中太子长琴的命魂四魄，连同煞气，封印在他体内。韩云溪死而复生后，因魂魄不全，而失去了与灭族相关的记忆。在某次煞气发作中，被紫胤真人所救，拜入昆仑山天墉城，更名为“百里屠苏”</p>
+<p>十年后，为寻找灭族仇人而离开了天墉城。在翻云寨中再次遇上深藏不露的欧阳少恭。游历时结识了风晴雪、方兰生、襄铃、红玉等人，与他们结伴旅行后，渐渐敞开了封闭的心扉。而且与晴雪之间也产生了一种微妙的感情。经过铁柱观的不离、乌蒙灵谷的不弃，终于在故乡向其表白，在地界幽都终成眷属。然而还未来得及相守，为了亲手断绝与太子长琴、欧阳少恭的宿命因缘，为了给族人报仇，也为了挽救苍生性命，他选择解开体内煞气的封印（解封虽能获得焚寂之力，但三日后魂魄会散去）。</p>
+<h3 id="百里屠苏">百里屠苏</h3>
+<blockquote>
+<p>百里屠苏是上海烛龙研发的单机游戏《古剑奇谭：琴心剑魄今何在》第一男主角，贯穿游戏主题，为故事灵魂“琴心剑魄”之“剑魄”。<br>原名韩云溪，太子长琴半身。幼时经历灭族之灾，本来已死去，但因体内被封进了太子长琴一半魂魄而得以死而复生。、身怀凶剑焚寂的煞气，在某次煞气发作中被紫胤真人所救，后拜入昆仑山天墉城，以“屠绝鬼气，苏醒人魂”之意更名为“百里屠苏”。十年后，他为寻找灭族仇人而离开天墉城，踏上了漫漫征途。</p>
+</blockquote>
+<p><a href="http://baike.baidu.com/view/3410394.htm" target="_blank" rel="external">百里屠苏百度百科</a> <img src="http://jjyy.qiniudn.com/gjqt20130516114637_VZBPc.jpeg" alt="百里屠苏图片1"><br><img src="http://jjyy.qiniudn.com/gjqt2_resize.jpg" alt="2"></p>
+<h3 id="风晴雪">风晴雪</h3>
+<blockquote>
+<p>风晴雪是一位能够给人带来温暖的独特女孩。她来历神秘，善良而热情<br>，似乎对世间的一切都充满了好奇，她像个天然喜悦的精灵，真诚地帮助每一个遇到困难的人们。然而，在她温暖笑容的背后，却似乎潜藏着深深的孤独。[2]<br>百里屠苏有自己的苦衷，不爱与他人交往，而风晴雪体质天生带毒，也很难和其他人过于亲近。然而对待朋友、看待这个世界，风晴雪有着和百里屠苏截然不同的方式。相对于屠苏的冷漠和回避，她似乎总是充满活力，去看更多美景，去认识更多朋友、去给更多的人带来喜悦和温暖。她害怕孤独，因而更想帮助屠苏从那种孤独的感觉当中走出来；她真心热爱着这个色彩斑斓的鲜活世界，因而更珍惜每一个今天。<br>晴雪之名，取自于中皇山盛景”中皇晴雪”的意象，象征纯洁，也象征那即使在飘雪的寒冷中也能为人间带来温暖的晴朗笑靥——这就是晴雪，拥有治愈人心的魅力。同时，<strong>晴雪也是一种古酒的名称</strong>。</p>
+</blockquote>
+<p><a href="http://baike.baidu.com/view/3400048.htm" target="_blank" rel="external">风晴雪百科</a><br><img src="http://jjyy.qiniudn.com/gjqtYX_20130626092633228.jpg" alt="风晴雪图片"></p>
+<h3 id="电视剧的观后感">电视剧的观后感</h3>
+<p>由于游戏中人物比较多， 所以就不一一介绍了。在湖南台看了第一集的后半部分，和第二集，印象中游戏里面没有晴雪和少恭去天墉城拜师啊，这个也是没有办法啊， 游戏里面主要是要玩家通过迷宫与对话来通过剧情，练级打怪， 不过电视剧里面就会加入些无聊的整蛊捉弄，在游戏中根本不存在的东西拖长整个剧集。百里屠苏还是挺帅的，这个演员还不错。欧阳少恭在电视剧里面还是感觉嫩了点， 要是再成熟点更好。女一号又被杨幂演了，为什么又是她演呢， 如果可以快进的话， 肯定要跳过杨幂出现的部分。</p>
+]]></content>
+    
+    
+      <category term="gjqt" scheme="http://www.ifzer.com/tags/gjqt/"/>
+    
+      <category term="game" scheme="http://www.ifzer.com/tags/game/"/>
+    
+      <category term="tv" scheme="http://www.ifzer.com/categories/tv/"/>
+    
+  </entry>
+  
+</feed>
