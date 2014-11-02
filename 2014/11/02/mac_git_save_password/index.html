@@ -4,20 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>基本概念：路由-控制器-视图 | ifzer</title>
+    <title>如何在MAC上保存Git的密码 | ifzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="bangsen yin">
     
-    <meta name="description" content="路由 a route
-路由文件是每个http请求的入口。在这里必须映射一个URL像 /index.html 或者 /person.json 到一些东西在你的应该内部来实际处理些事情。这就是被定义的路由文件。
-按约定每个忍者应用饮食如下的java文件：conf/Routes.java. Routes.">
+    <meta name="description" content="升级了GIT
+之前使用的应该是在git-scm上面下载的DMG文件进行安装的，查看到的版本是1.9.3，所以今晚使用了Homebrew进行了安装，目前安装的是最新版本的2.1.2. 在oh-my-zsh的配置文件~/.zshrc里面添加了brew安装的git，然后使用git --version, 就">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="ivan_ifzer" />
-    <meta name="twitter:title" content="基本概念：路由-控制器-视图 | ifzer" />
+    <meta name="twitter:title" content="如何在MAC上保存Git的密码 | ifzer" />
       
     
     
@@ -77,14 +76,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/09/16/ninja-忍者java web框架-基本概念：路由-控制器-视图/" title="基本概念：路由-控制器-视图" itemprop="url">基本概念：路由-控制器-视图</a>
+      <a href="/2014/11/02/mac_git_save_password/" title="如何在MAC上保存Git的密码" itemprop="url">如何在MAC上保存Git的密码</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/110769025630537500000?rel=author" title="bangsen yin" target="_blank" itemprop="author">bangsen yin</a>
 		
   <p class="article-time">
-    <time datetime="2014-09-16T04:25:58.000Z" itemprop="datePublished">Published 9月 16 2014</time>
+    <time datetime="2014-11-02T15:55:58.000Z" itemprop="datePublished">Published 11月 2 2014</time>
     
   </p>
 </header>
@@ -94,60 +93,53 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由_a_route"><span class="toc-number">1.</span> <span class="toc-text">路由 a route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制器_a_controller"><span class="toc-number">2.</span> <span class="toc-text">控制器 a controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图_a_view"><span class="toc-number">3.</span> <span class="toc-text">视图 a view</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#升级了GIT"><span class="toc-number">1.</span> <span class="toc-text">升级了GIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保存密码"><span class="toc-number">2.</span> <span class="toc-text">保存密码</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="路由_a_route">路由 a route</h3>
-<p>路由文件是每个http请求的入口。在这里必须映射一个URL像 /index.html 或者 /person.json 到一些东西在你的应该内部来实际处理些事情。这就是被定义的路由文件。</p>
-<p>按约定每个忍者应用饮食如下的java文件：<code>conf/Routes.java. Routes.java</code> 包含所有的路由为你的应用。</p>
-<p>一个最小的路由文件看起来如下：</p>
-<pre><code>    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Routes</span> <span class="keyword">implements</span> <span class="title">ApplicationRoutes</span> </span>{
+		<h3 id="升级了GIT">升级了GIT</h3>
+<p>之前使用的应该是在<a href="http://git-scm.com" target="_blank" rel="external">git-scm</a>上面下载的DMG文件进行安装的，查看到的版本是1.9.3，所以今晚使用了Homebrew进行了安装，<br>目前安装的是最新版本的2.1.2. 在oh-my-zsh的配置文件~/.zshrc里面添加了brew安装的git，然后使用<code>git --version</code>, 就会提示版本是2.1.2了。</p>
+<h3 id="保存密码">保存密码</h3>
+<p>成功升级后，发现以前不需要输入用户名和密码的，但是现在push到github上面的时候，提示需要输入用户名和密码，所以不是挺方便，在google上搜索后，发现了git的help，<a href="https://help.github.com/articles/caching-your-github-password-in-git/#platform-mac" target="_blank" rel="external">help</a>,<br>只需要4步就可以了，如果已经安装了credential-osxkeychain，则只需要一步就好了。</p>
+<ol>
+<li><p>在终端中查看是否安装了credential-osxkeychain</p>
+<pre><code> <span class="title">git</span> credential-osxkeychain
+ <span class="comment"># Test for the cred helper</span>
+ <span class="comment"># Usage: git credential-osxkeychain &lt;get|store|erase&gt;</span>
+</code></pre></li>
+<li><p>如果credential-osxkeychain没有安装，需要下载通过curl</p>
+<pre><code> <span class="title">curl</span> -s -O \
+ <span class="url">https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain</span>
+ <span class="comment"># Download the helper</span>
 
-    <span class="annotation">@Override</span>
-    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span>(Router router) {
-
-        router.GET().route(<span class="string">"/"</span>).with(ApplicationController.class, <span class="string">"index"</span>);
-
-    }
-}
-</code></pre><p>上面的代码意味着请求到服务器的 <code>/</code> 路径 被 <code>ApplicationController</code> 这个控制器类的 <code>index</code> 方法处理， 但是 <code>ApplicationController</code> 长成什么样呢？</p>
-<hr>
-<h3 id="控制器_a_controller">控制器 a controller</h3>
-<p>控制器只是个简单的java类并且应该被放在package <code>controller</code> 下面<br>    package controllers;</p>
-<pre><code>@Singleton
-<span class="keyword">public</span> <span class="keyword">class</span> ApplicationController {       
-
-    <span class="keyword">public</span> Result <span class="title">index</span>() {
-        <span class="keyword">return</span> Results.html();
-
-    }
-}
-</code></pre><p>控制器方法总是会返回一个 <code>Result</code> 。 <code>Results</code>(多了个s)只是一个小的工具类用来帮助我们更加简单的创建结果。在上例中，应用控制结果为html响应。</p>
-<p>现在我们得到了等式的一边-从忍者到路由到我们的控制器。但是忍者怎么生成这html的输出？</p>
-<h3 id="视图_a_view">视图 a view</h3>
-<p>视图被声明在包 <code>views</code>中。按约定视图与控制器的对应关系总是被放置在 <code>views/CONTROLLER_NAME/METHOD_NAME</code> 。 在我们的例子，这视图将被找到从 <code>views/ApplicationController/index.ftl.html</code> 。</p>
-<p>一个真实的简单视图可以如下：<br><code>&lt;html&gt;
-    &lt;body&gt;
-        &lt;h1&gt;Hello world&lt;/h1&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></p>
-<h3 id="总结">总结</h3>
-<p>这是忍者的基本概念， 并且这是所有你需要启动你自己的应用。 忍者的基本概念总是 <code>Route =&gt; Controller =&gt; View</code> 。</p>
-<p>当然视图不仅可以表示为html, 也可以为json 或 xml。 当然你也可以表示你的模式用你的视图。更多关于视图表示的在接下来的文档部分。</p>
+ chmod u+x git-credential-osxkeychain
+ <span class="comment"># Fix the permissions on the file so it can be run</span>
+</code></pre></li>
+<li><p>安装credential-osxkeychain到Git的安装目录</p>
+<pre><code> <span class="built_in">sudo</span> mv git-credential-osxkeychain \
+ <span class="string">"<span class="variable">$(dirname $(which git)</span>)/git-credential-osxkeychain"</span>
+ <span class="comment"># Move the helper to the path where git is installed</span>
+ <span class="comment"># Password: [enter your password]</span>
+</code></pre></li>
+<li><p>告诉git使用osxkeychain使用全局<code>credential.helper</code>的配置：</p>
+<pre><code> git config <span class="comment">--global credential.helper osxkeychain</span>
+ # <span class="operator"><span class="keyword">Set</span> git <span class="keyword">to</span> <span class="keyword">use</span> the osxkeychain credential helper</span>
+</code></pre></li>
+</ol>
+<p>在上面的都配置好了之后，如果再进行一次push操作，则OSX会提示你是否用OSX的keychain，我选择了全部允许，测试后，不需要输入用户名和密码就提交了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/ninja-web-framework/">ninja_web_framework</a>
+  <a class="article-category-link" href="/categories/mac/">mac</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/ninja/">ninja</a><a href="/tags/java/">java</a><a href="/tags/framework/">framework</a><a href="/tags/web/">web</a>
+  <span></span> <a href="/tags/mac/">mac</a><a href="/tags/git/">git</a>
   </div>
 
 
@@ -184,19 +176,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/09/17/ninja_getting_start/" title="入门与安装忍者-获取开始之零">
-  <strong>上一篇：</strong><br/>
-  <span>
-  入门与安装忍者-获取开始之零</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/09/16/hello-world/"  title="Hello World">
+<a href="/2014/11/02/swift_study_record/"  title="记录下swift学习的进度以及所遇到的问题">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>记录下swift学习的进度以及所遇到的问题
 </span>
 </a>
 </div>
@@ -215,7 +199,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由_a_route"><span class="toc-number">1.</span> <span class="toc-text">路由 a route</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制器_a_controller"><span class="toc-number">2.</span> <span class="toc-text">控制器 a controller</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#视图_a_view"><span class="toc-number">3.</span> <span class="toc-text">视图 a view</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#升级了GIT"><span class="toc-number">1.</span> <span class="toc-text">升级了GIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#保存密码"><span class="toc-number">2.</span> <span class="toc-text">保存密码</span></a></li></ol>
  
   </div>
 

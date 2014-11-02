@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-02T15:48:06.353Z</updated>
+  <updated>2014-11-02T16:04:49.713Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -13,6 +13,53 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[如何在MAC上保存Git的密码]]></title>
+    <link href="http://www.ifzer.com/2014/11/02/mac_git_save_password/"/>
+    <id>http://www.ifzer.com/2014/11/02/mac_git_save_password/</id>
+    <published>2014-11-02T15:55:58.000Z</published>
+    <updated>2014-11-02T16:04:31.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="升级了GIT">升级了GIT</h3>
+<p>之前使用的应该是在<a href="http://git-scm.com" target="_blank" rel="external">git-scm</a>上面下载的DMG文件进行安装的，查看到的版本是1.9.3，所以今晚使用了Homebrew进行了安装，<br>目前安装的是最新版本的2.1.2. 在oh-my-zsh的配置文件~/.zshrc里面添加了brew安装的git，然后使用<code>git --version</code>, 就会提示版本是2.1.2了。</p>
+<h3 id="保存密码">保存密码</h3>
+<p>成功升级后，发现以前不需要输入用户名和密码的，但是现在push到github上面的时候，提示需要输入用户名和密码，所以不是挺方便，在google上搜索后，发现了git的help，<a href="https://help.github.com/articles/caching-your-github-password-in-git/#platform-mac" target="_blank" rel="external">help</a>,<br>只需要4步就可以了，如果已经安装了credential-osxkeychain，则只需要一步就好了。</p>
+<ol>
+<li><p>在终端中查看是否安装了credential-osxkeychain</p>
+<pre><code> <span class="title">git</span> credential-osxkeychain
+ <span class="comment"># Test for the cred helper</span>
+ <span class="comment"># Usage: git credential-osxkeychain &lt;get|store|erase&gt;</span>
+</code></pre></li>
+<li><p>如果credential-osxkeychain没有安装，需要下载通过curl</p>
+<pre><code> <span class="title">curl</span> -s -O \
+ <span class="url">https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain</span>
+ <span class="comment"># Download the helper</span>
+
+ chmod u+x git-credential-osxkeychain
+ <span class="comment"># Fix the permissions on the file so it can be run</span>
+</code></pre></li>
+<li><p>安装credential-osxkeychain到Git的安装目录</p>
+<pre><code> <span class="built_in">sudo</span> mv git-credential-osxkeychain \
+ <span class="string">"<span class="variable">$(dirname $(which git)</span>)/git-credential-osxkeychain"</span>
+ <span class="comment"># Move the helper to the path where git is installed</span>
+ <span class="comment"># Password: [enter your password]</span>
+</code></pre></li>
+<li><p>告诉git使用osxkeychain使用全局<code>credential.helper</code>的配置：</p>
+<pre><code> git config <span class="comment">--global credential.helper osxkeychain</span>
+ # <span class="operator"><span class="keyword">Set</span> git <span class="keyword">to</span> <span class="keyword">use</span> the osxkeychain credential helper</span>
+</code></pre></li>
+</ol>
+<p>在上面的都配置好了之后，如果再进行一次push操作，则OSX会提示你是否用OSX的keychain，我选择了全部允许，测试后，不需要输入用户名和密码就提交了。</p>
+]]></content>
+    
+    
+      <category term="mac" scheme="http://www.ifzer.com/tags/mac/"/>
+    
+      <category term="git" scheme="http://www.ifzer.com/tags/git/"/>
+    
+      <category term="mac" scheme="http://www.ifzer.com/categories/mac/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[记录下swift学习的进度以及所遇到的问题]]></title>
