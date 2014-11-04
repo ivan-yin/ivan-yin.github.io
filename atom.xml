@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-02T16:04:49.713Z</updated>
+  <updated>2014-11-04T15:25:41.784Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -13,6 +13,25 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hadoop hdfs学习]]></title>
+    <link href="http://www.ifzer.com/2014/11/04/hadoop_hdfs/"/>
+    <id>http://www.ifzer.com/2014/11/04/hadoop_hdfs/</id>
+    <published>2014-11-04T15:55:58.000Z</published>
+    <updated>2014-11-04T15:25:35.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="HDFS">HDFS</h2>
+<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，它的全名是Hadoop Distributed File System, 简称HDFS，</p>
+]]></content>
+    
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/tags/hadoop/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/categories/hadoop/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[如何在MAC上保存Git的密码]]></title>
