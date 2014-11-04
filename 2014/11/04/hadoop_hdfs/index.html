@@ -10,7 +10,9 @@
     <meta name="author" content="bangsen yin">
     
     <meta name="description" content="HDFS
-HDFS是Apache Hadoop项目中的两个核心组件中的一个，它的全名是Hadoop Distributed File System, 简称HDFS，">
+HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。
+HDFS的特点
+HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-ma">
     
     
     
@@ -93,12 +95,30 @@ HDFS是Apache Hadoop项目中的两个核心组件中的一个，它的全名是
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的特点"><span class="toc-number">1.1.</span> <span class="toc-text">HDFS的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的API接口"><span class="toc-number">1.2.</span> <span class="toc-text">HDFS的API接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章大部分摘自IBM-hdfs"><span class="toc-number">1.3.</span> <span class="toc-text">文章大部分摘自IBM-hdfs</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<h2 id="HDFS">HDFS</h2>
-<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，它的全名是Hadoop Distributed File System, 简称HDFS，</p>
+<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。</p>
+<h3 id="HDFS的特点">HDFS的特点</h3>
+<p>HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-many）”，另外的特点有：</p>
+<ol>
+<li>通过HDFS心跳检测故障，判断Data node是否死亡，以及强大的自动复制Data node，以达到很强的容错性</li>
+<li>通过MapReduce流进行数据访问</li>
+<li>简单可靠的聚合模型</li>
+<li>处理逻辑接近数据，而不是数据接近处理逻辑（这一段需要理解）</li>
+<li>跨异构普通硬件和操作系统的可移植性</li>
+<li>可靠存储和处理大量数据的可伸缩性</li>
+<li>通过跨多个普通个人计算机集群分布数据和处理来节约成本</li>
+<li>通过分布数据和逻辑到数据所在的多个节点上进行平行处理来提高效率</li>
+<li>通过自动维护多个数据副本和在故障发生时自动重新部署处理逻辑来实现可靠性</li>
+</ol>
+<hr>
+<h3 id="HDFS的API接口">HDFS的API接口</h3>
+<p>最重要的一般是HDFS shell commands <code>bin/hdfs dfs -help</code>,里面会有一般性的Unix类的操作，例如chown,chmod,cp,mv,rm……, 更多的可以查看<a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="external">File System Shell Guide</a><br>DFSAdmin 用于管理HDFS集群的命令集<br>Name node &amp; Data node , Name用于管理文件系统名称空间操作，比如打开，关闭及重命名文件和目录，还负责将数据块映射到Data node, data node 根据name node的指令创建，删除和复制数据块。</p>
+<h3 id="文章大部分摘自IBM-hdfs">文章大部分摘自<a href="http://www.ibm.com/developerworks/cn/web/wa-introhdfs/#authorN10022" target="_blank" rel="external">IBM-hdfs</a></h3>
+<p>原文写的很好，为了加深理解，所以摘录些下来，以加深自己的认识，特以记之。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -171,7 +191,7 @@ HDFS是Apache Hadoop项目中的两个核心组件中的一个，它的全名是
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的特点"><span class="toc-number">1.1.</span> <span class="toc-text">HDFS的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的API接口"><span class="toc-number">1.2.</span> <span class="toc-text">HDFS的API接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章大部分摘自IBM-hdfs"><span class="toc-number">1.3.</span> <span class="toc-text">文章大部分摘自IBM-hdfs</span></a></li></ol></li></ol>
  
   </div>
 
