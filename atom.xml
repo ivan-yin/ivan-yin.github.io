@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-05T16:07:30.932Z</updated>
+  <updated>2014-11-05T16:08:53.781Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -15,118 +15,11 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[hadoop hdfs学习]]></title>
-    <link href="http://www.ifzer.com/2014/11/04/hadoop_hdfs/"/>
-    <id>http://www.ifzer.com/2014/11/04/hadoop_hdfs/</id>
-    <published>2014-11-04T15:55:58.000Z</published>
-    <updated>2014-11-04T15:51:13.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="HDFS">HDFS</h2>
-<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。</p>
-<h3 id="HDFS的特点">HDFS的特点</h3>
-<p>HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-many）”，另外的特点有：</p>
-<ol>
-<li>通过HDFS心跳检测故障，判断Data node是否死亡，以及强大的自动复制Data node，以达到很强的容错性</li>
-<li>通过MapReduce流进行数据访问</li>
-<li>简单可靠的聚合模型</li>
-<li>处理逻辑接近数据，而不是数据接近处理逻辑（这一段需要理解）</li>
-<li>跨异构普通硬件和操作系统的可移植性</li>
-<li>可靠存储和处理大量数据的可伸缩性</li>
-<li>通过跨多个普通个人计算机集群分布数据和处理来节约成本</li>
-<li>通过分布数据和逻辑到数据所在的多个节点上进行平行处理来提高效率</li>
-<li>通过自动维护多个数据副本和在故障发生时自动重新部署处理逻辑来实现可靠性</li>
-</ol>
-<hr>
-<h3 id="HDFS的API接口">HDFS的API接口</h3>
-<p>最重要的一般是HDFS shell commands <code>bin/hdfs dfs -help</code>,里面会有一般性的Unix类的操作，例如chown,chmod,cp,mv,rm……, 更多的可以查看<a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="external">File System Shell Guide</a><br>DFSAdmin 用于管理HDFS集群的命令集<br>Name node &amp; Data node , Name用于管理文件系统名称空间操作，比如打开，关闭及重命名文件和目录，还负责将数据块映射到Data node, data node 根据name node的指令创建，删除和复制数据块。</p>
-<h3 id="文章大部分摘自IBM-hdfs">文章大部分摘自<a href="http://www.ibm.com/developerworks/cn/web/wa-introhdfs/#authorN10022" target="_blank" rel="external">IBM-hdfs</a></h3>
-<p>原文写的很好，为了加深理解，所以摘录些下来，以加深自己的认识，特以记之。</p>
-]]></content>
-    
-    
-      <category term="hadoop" scheme="http://www.ifzer.com/tags/hadoop/"/>
-    
-      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
-    
-      <category term="hadoop" scheme="http://www.ifzer.com/categories/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[如何在MAC上保存Git的密码]]></title>
-    <link href="http://www.ifzer.com/2014/11/02/mac_git_save_password/"/>
-    <id>http://www.ifzer.com/2014/11/02/mac_git_save_password/</id>
-    <published>2014-11-02T15:55:58.000Z</published>
-    <updated>2014-11-02T16:04:31.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="升级了GIT">升级了GIT</h3>
-<p>之前使用的应该是在<a href="http://git-scm.com" target="_blank" rel="external">git-scm</a>上面下载的DMG文件进行安装的，查看到的版本是1.9.3，所以今晚使用了Homebrew进行了安装，<br>目前安装的是最新版本的2.1.2. 在oh-my-zsh的配置文件~/.zshrc里面添加了brew安装的git，然后使用<code>git --version</code>, 就会提示版本是2.1.2了。</p>
-<h3 id="保存密码">保存密码</h3>
-<p>成功升级后，发现以前不需要输入用户名和密码的，但是现在push到github上面的时候，提示需要输入用户名和密码，所以不是挺方便，在google上搜索后，发现了git的help，<a href="https://help.github.com/articles/caching-your-github-password-in-git/#platform-mac" target="_blank" rel="external">help</a>,<br>只需要4步就可以了，如果已经安装了credential-osxkeychain，则只需要一步就好了。</p>
-<ol>
-<li><p>在终端中查看是否安装了credential-osxkeychain</p>
-<pre><code> <span class="title">git</span> credential-osxkeychain
- <span class="comment"># Test for the cred helper</span>
- <span class="comment"># Usage: git credential-osxkeychain &lt;get|store|erase&gt;</span>
-</code></pre></li>
-<li><p>如果credential-osxkeychain没有安装，需要下载通过curl</p>
-<pre><code> <span class="title">curl</span> -s -O \
- <span class="url">https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain</span>
- <span class="comment"># Download the helper</span>
-
- chmod u+x git-credential-osxkeychain
- <span class="comment"># Fix the permissions on the file so it can be run</span>
-</code></pre></li>
-<li><p>安装credential-osxkeychain到Git的安装目录</p>
-<pre><code> <span class="built_in">sudo</span> mv git-credential-osxkeychain \
- <span class="string">"<span class="variable">$(dirname $(which git)</span>)/git-credential-osxkeychain"</span>
- <span class="comment"># Move the helper to the path where git is installed</span>
- <span class="comment"># Password: [enter your password]</span>
-</code></pre></li>
-<li><p>告诉git使用osxkeychain使用全局<code>credential.helper</code>的配置：</p>
-<pre><code> git config <span class="comment">--global credential.helper osxkeychain</span>
- # <span class="operator"><span class="keyword">Set</span> git <span class="keyword">to</span> <span class="keyword">use</span> the osxkeychain credential helper</span>
-</code></pre></li>
-</ol>
-<p>在上面的都配置好了之后，如果再进行一次push操作，则OSX会提示你是否用OSX的keychain，我选择了全部允许，测试后，不需要输入用户名和密码就提交了。</p>
-]]></content>
-    
-    
-      <category term="mac" scheme="http://www.ifzer.com/tags/mac/"/>
-    
-      <category term="git" scheme="http://www.ifzer.com/tags/git/"/>
-    
-      <category term="mac" scheme="http://www.ifzer.com/categories/mac/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[记录下swift学习的进度以及所遇到的问题]]></title>
-    <link href="http://www.ifzer.com/2014/11/02/swift_study_record/"/>
-    <id>http://www.ifzer.com/2014/11/02/swift_study_record/</id>
-    <published>2014-11-02T15:25:58.000Z</published>
-    <updated>2014-11-02T15:42:04.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="学习的课本为">学习的课本为</h2>
-<p><a href="http://www.cocoachina.com/bbs/read.php?tid=205308" target="_blank" rel="external">The Swift Programming LanguageCocoaChina精校PDF完整版</a></p>
-<h3 id="知识点">知识点</h3>
-<h3 id="问题">问题</h3>
-<h3 id="进度">进度</h3>
-<p>时间进度 November 2, 2014。<br>将14年9月的练习swift的代码到github仓库中，<br>地址为<a href="https://github.com/ivan-yin/swiftstart.git" target="_blank" rel="external">swiftstart</a></p>
-]]></content>
-    
-    
-      <category term="swift" scheme="http://www.ifzer.com/tags/swift/"/>
-    
-      <category term="ios" scheme="http://www.ifzer.com/tags/ios/"/>
-    
-      <category term="iOS" scheme="http://www.ifzer.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Hadoop学习-On slide share]]></title>
-    <link href="http://www.ifzer.com/2014/11/01/hadoop_slide/"/>
-    <id>http://www.ifzer.com/2014/11/01/hadoop_slide/</id>
-    <published>2014-11-01T01:25:58.000Z</published>
-    <updated>2014-11-05T16:07:25.000Z</updated>
+    <link href="http://www.ifzer.com/2014/11/06/hadoop_slide/"/>
+    <id>http://www.ifzer.com/2014/11/06/hadoop_slide/</id>
+    <published>2014-11-05T16:25:58.000Z</published>
+    <updated>2014-11-05T16:08:34.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</h2>
 <p><a href="http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop" target="_blank" rel="external">http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop</a><br>在slide share上学习了这篇文章，作者分析的很好，分享给其它同事看的时候，他竟然不能打开，可怜的国内网络，把太多好的东西都挡了，如果可以下载的话那么也可以分享到其它同事或者需要学习的人。</p>
 <h2 id="文章中提到的大纲">文章中提到的大纲</h2>
@@ -264,6 +157,113 @@ Machine Learning： Mahout <span class="keyword">...</span>
       <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
     
       <category term="hadoop" scheme="http://www.ifzer.com/categories/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[hadoop hdfs学习]]></title>
+    <link href="http://www.ifzer.com/2014/11/04/hadoop_hdfs/"/>
+    <id>http://www.ifzer.com/2014/11/04/hadoop_hdfs/</id>
+    <published>2014-11-04T15:55:58.000Z</published>
+    <updated>2014-11-04T15:51:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="HDFS">HDFS</h2>
+<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。</p>
+<h3 id="HDFS的特点">HDFS的特点</h3>
+<p>HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-many）”，另外的特点有：</p>
+<ol>
+<li>通过HDFS心跳检测故障，判断Data node是否死亡，以及强大的自动复制Data node，以达到很强的容错性</li>
+<li>通过MapReduce流进行数据访问</li>
+<li>简单可靠的聚合模型</li>
+<li>处理逻辑接近数据，而不是数据接近处理逻辑（这一段需要理解）</li>
+<li>跨异构普通硬件和操作系统的可移植性</li>
+<li>可靠存储和处理大量数据的可伸缩性</li>
+<li>通过跨多个普通个人计算机集群分布数据和处理来节约成本</li>
+<li>通过分布数据和逻辑到数据所在的多个节点上进行平行处理来提高效率</li>
+<li>通过自动维护多个数据副本和在故障发生时自动重新部署处理逻辑来实现可靠性</li>
+</ol>
+<hr>
+<h3 id="HDFS的API接口">HDFS的API接口</h3>
+<p>最重要的一般是HDFS shell commands <code>bin/hdfs dfs -help</code>,里面会有一般性的Unix类的操作，例如chown,chmod,cp,mv,rm……, 更多的可以查看<a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="external">File System Shell Guide</a><br>DFSAdmin 用于管理HDFS集群的命令集<br>Name node &amp; Data node , Name用于管理文件系统名称空间操作，比如打开，关闭及重命名文件和目录，还负责将数据块映射到Data node, data node 根据name node的指令创建，删除和复制数据块。</p>
+<h3 id="文章大部分摘自IBM-hdfs">文章大部分摘自<a href="http://www.ibm.com/developerworks/cn/web/wa-introhdfs/#authorN10022" target="_blank" rel="external">IBM-hdfs</a></h3>
+<p>原文写的很好，为了加深理解，所以摘录些下来，以加深自己的认识，特以记之。</p>
+]]></content>
+    
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/tags/hadoop/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/categories/hadoop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何在MAC上保存Git的密码]]></title>
+    <link href="http://www.ifzer.com/2014/11/02/mac_git_save_password/"/>
+    <id>http://www.ifzer.com/2014/11/02/mac_git_save_password/</id>
+    <published>2014-11-02T15:55:58.000Z</published>
+    <updated>2014-11-02T16:04:31.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="升级了GIT">升级了GIT</h3>
+<p>之前使用的应该是在<a href="http://git-scm.com" target="_blank" rel="external">git-scm</a>上面下载的DMG文件进行安装的，查看到的版本是1.9.3，所以今晚使用了Homebrew进行了安装，<br>目前安装的是最新版本的2.1.2. 在oh-my-zsh的配置文件~/.zshrc里面添加了brew安装的git，然后使用<code>git --version</code>, 就会提示版本是2.1.2了。</p>
+<h3 id="保存密码">保存密码</h3>
+<p>成功升级后，发现以前不需要输入用户名和密码的，但是现在push到github上面的时候，提示需要输入用户名和密码，所以不是挺方便，在google上搜索后，发现了git的help，<a href="https://help.github.com/articles/caching-your-github-password-in-git/#platform-mac" target="_blank" rel="external">help</a>,<br>只需要4步就可以了，如果已经安装了credential-osxkeychain，则只需要一步就好了。</p>
+<ol>
+<li><p>在终端中查看是否安装了credential-osxkeychain</p>
+<pre><code> <span class="title">git</span> credential-osxkeychain
+ <span class="comment"># Test for the cred helper</span>
+ <span class="comment"># Usage: git credential-osxkeychain &lt;get|store|erase&gt;</span>
+</code></pre></li>
+<li><p>如果credential-osxkeychain没有安装，需要下载通过curl</p>
+<pre><code> <span class="title">curl</span> -s -O \
+ <span class="url">https://github-media-downloads.s3.amazonaws.com/osx/git-credential-osxkeychain</span>
+ <span class="comment"># Download the helper</span>
+
+ chmod u+x git-credential-osxkeychain
+ <span class="comment"># Fix the permissions on the file so it can be run</span>
+</code></pre></li>
+<li><p>安装credential-osxkeychain到Git的安装目录</p>
+<pre><code> <span class="built_in">sudo</span> mv git-credential-osxkeychain \
+ <span class="string">"<span class="variable">$(dirname $(which git)</span>)/git-credential-osxkeychain"</span>
+ <span class="comment"># Move the helper to the path where git is installed</span>
+ <span class="comment"># Password: [enter your password]</span>
+</code></pre></li>
+<li><p>告诉git使用osxkeychain使用全局<code>credential.helper</code>的配置：</p>
+<pre><code> git config <span class="comment">--global credential.helper osxkeychain</span>
+ # <span class="operator"><span class="keyword">Set</span> git <span class="keyword">to</span> <span class="keyword">use</span> the osxkeychain credential helper</span>
+</code></pre></li>
+</ol>
+<p>在上面的都配置好了之后，如果再进行一次push操作，则OSX会提示你是否用OSX的keychain，我选择了全部允许，测试后，不需要输入用户名和密码就提交了。</p>
+]]></content>
+    
+    
+      <category term="mac" scheme="http://www.ifzer.com/tags/mac/"/>
+    
+      <category term="git" scheme="http://www.ifzer.com/tags/git/"/>
+    
+      <category term="mac" scheme="http://www.ifzer.com/categories/mac/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[记录下swift学习的进度以及所遇到的问题]]></title>
+    <link href="http://www.ifzer.com/2014/11/02/swift_study_record/"/>
+    <id>http://www.ifzer.com/2014/11/02/swift_study_record/</id>
+    <published>2014-11-02T15:25:58.000Z</published>
+    <updated>2014-11-02T15:42:04.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="学习的课本为">学习的课本为</h2>
+<p><a href="http://www.cocoachina.com/bbs/read.php?tid=205308" target="_blank" rel="external">The Swift Programming LanguageCocoaChina精校PDF完整版</a></p>
+<h3 id="知识点">知识点</h3>
+<h3 id="问题">问题</h3>
+<h3 id="进度">进度</h3>
+<p>时间进度 November 2, 2014。<br>将14年9月的练习swift的代码到github仓库中，<br>地址为<a href="https://github.com/ivan-yin/swiftstart.git" target="_blank" rel="external">swiftstart</a></p>
+]]></content>
+    
+    
+      <category term="swift" scheme="http://www.ifzer.com/tags/swift/"/>
+    
+      <category term="ios" scheme="http://www.ifzer.com/tags/ios/"/>
+    
+      <category term="iOS" scheme="http://www.ifzer.com/categories/iOS/"/>
     
   </entry>
   
