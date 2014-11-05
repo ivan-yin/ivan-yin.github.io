@@ -93,13 +93,139 @@ http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop在slide 
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)"><span class="toc-number">1.</span> <span class="toc-text">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#_"><span class="toc-number">2.</span> <span class="toc-text"> </span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)"><span class="toc-number">1.</span> <span class="toc-text">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文章中提到的大纲"><span class="toc-number">2.</span> <span class="toc-text">文章中提到的大纲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#进击的Hadoop"><span class="toc-number">2.1.</span> <span class="toc-text">进击的Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hadoop_1-x_架构中的限制："><span class="toc-number">2.1.1.</span> <span class="toc-text">Hadoop 1.x 架构中的限制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hadoop_2-x_架构"><span class="toc-number">2.1.2.</span> <span class="toc-text">Hadoop 2.x 架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-x架构流程"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.x架构流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MapReduce（MRv2）分式优点"><span class="toc-number">2.1.4.</span> <span class="toc-text">MapReduce（MRv2）分式优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#YARN_-_Yet_Another_Resource_Negotiator"><span class="toc-number">2.1.5.</span> <span class="toc-text">YARN - Yet Another Resource Negotiator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop家族"><span class="toc-number">2.2.</span> <span class="toc-text">Hadoop家族</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HCatlalog"><span class="toc-number">2.2.1.</span> <span class="toc-text">HCatlalog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hive与Pig"><span class="toc-number">2.2.2.</span> <span class="toc-text">Hive与Pig</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop战队"><span class="toc-number">2.3.</span> <span class="toc-text">Hadoop战队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop富二代"><span class="toc-number">2.4.</span> <span class="toc-text">Hadoop富二代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop小圈圈"><span class="toc-number">2.5.</span> <span class="toc-text">Hadoop小圈圈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#喝咖啡骑大象建议"><span class="toc-number">2.6.</span> <span class="toc-text">喝咖啡骑大象建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Programming"><span class="toc-number">2.6.1.</span> <span class="toc-text">Programming</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1分钟在线上直接玩Hadoop"><span class="toc-number">2.6.2.</span> <span class="toc-text">1分钟在线上直接玩Hadoop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5分钟在本机建立一个Hadoop_VM"><span class="toc-number">2.6.3.</span> <span class="toc-text">5分钟在本机建立一个Hadoop VM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10分钟在云端建立一个Hadoop_Cluster"><span class="toc-number">2.6.4.</span> <span class="toc-text">10分钟在云端建立一个Hadoop Cluster</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.7.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上面的知识都来自Slide上面的文章，感谢作者的知识分享。"><span class="toc-number">2.8.</span> <span class="toc-text">上面的知识都来自Slide上面的文章，感谢作者的知识分享。</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h3 id="Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</h3>
+		<h2 id="Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</h2>
 <p><a href="http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop" target="_blank" rel="external">http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop</a><br>在slide share上学习了这篇文章，作者分析的很好，分享给其它同事看的时候，他竟然不能打开，可怜的国内网络，把太多好的东西都挡了，如果可以下载的话那么也可以分享到其它同事或者需要学习的人。</p>
-<h3 id="_"> </h3>
+<h2 id="文章中提到的大纲">文章中提到的大纲</h2>
+<ol>
+<li>前提提要</li>
+<li>进击的Hadoop</li>
+<li>Hadoop家族</li>
+<li>Hadoop战队</li>
+<li>Hadoop富二代</li>
+<li>Hadoop小圈圈</li>
+<li>喝咖啡骑大象建议</li>
+</ol>
+<h3 id="进击的Hadoop">进击的Hadoop</h3>
+<h4 id="Hadoop_1-x_架构中的限制：">Hadoop 1.x 架构中的限制：</h4>
+<ul>
+<li>每个Cluster大概4K~4.5K个Node</li>
+<li>JobTracker是架构瓶颈</li>
+<li>HDFS只能有一个Namespace，没办法分开管控/sales,/accounting, …</li>
+<li>只能招待MapReduce Job</li>
+<li>。。。</li>
+</ul>
+<h4 id="Hadoop_2-x_架构">Hadoop 2.x 架构</h4>
+<p>基本的模块：</p>
+<ul>
+<li>Hadoop Common(Core Lib)</li>
+<li>Hadoop HDFS(Storage)</li>
+<li>Hadoop MapReduce (Computing Engine)</li>
+<li>Hadoop YARN(Resource Management + Job Scheduling/Monitoring)</li>
+</ul>
+<p>Hadoop 2.x 默默地做了四五年了。。。，但向后兼容做的很棒，Yahoo！去年已经把2.x部署在35K+ Node跑了六个月以上。。。</p>
+<h4 id="2-x架构流程">2.x架构流程</h4>
+<ol>
+<li>submit job</li>
+<li>构建特定AM（ApllicationMaster）</li>
+</ol>
+<ul>
+<li>向RM（ResourceManager）注册AM</li>
+<li>发送Request给RM</li>
+<li>配置启动Container</li>
+<li>AM/Container沟通</li>
+<li>Client/AM沟通</li>
+<li>回收AM</li>
+</ul>
+<h4 id="MapReduce（MRv2）分式优点">MapReduce（MRv2）分式优点</h4>
+<p>RM其实是Resource Arbitrator，要考量到Capacity， Fairness, SLA等问题，也提供Pluggable Interface的不同想法</p>
+<p>AM其实是MRv1与MRv2最大的不同， 负责与中央的RM与各地的NodeManager协调沟通，招待与监督各个Container的动作状况，容错也归它管。</p>
+<p>因为<strong>AM分担了MRv1时代RM要做的大多数工作</strong>，所以MRv2的RM变得非常的Scalable，撑到10K+ Node也不是问题。又因为AM是Per-Application配置，所以也不会变成新的瓶颈。</p>
+<p>因为AM是Framework-Specific，所以AM就可以变成是一个中立的机制，方便支援各种不同Framework。</p>
+<h4 id="YARN_-_Yet_Another_Resource_Negotiator">YARN - Yet Another Resource Negotiator</h4>
+<p>分布式应用管理框架</p>
+<h3 id="Hadoop家族">Hadoop家族</h3>
+<ul>
+<li>HDFS:Distributed File System</li>
+<li>MapReduce:Distributed Data Analysis Engine</li>
+<li>Avro: Language-Neutral Data Serialization System (2010-05 成为Apache Top-Level Project)</li>
+<li>Mahout: Scalable Lib for Machine Learning</li>
+<li>HBase : Distributed Data Storage (2010-05 top proj)</li>
+<li>Pig: High Level Language for Data Analysis(2010-09 top proj)</li>
+<li>Hive: Data Warehousing and SQL-Like Query (2010-09 top proj)</li>
+<li>Sqoop : Data Migration Tool Between HDFS and RDBMS</li>
+</ul>
+<h4 id="HCatlalog">HCatlalog</h4>
+<p>Hadoop 里面的Naming Service，让各种不同技术，不需要知道资料真实存放的位置，也能够很方便地存取资料</p>
+<h4 id="Hive与Pig">Hive与Pig</h4>
+<p>大家都想使用Hadoop处理Big Data，但不是每个人都会写MapReduce/Java,于是：</p>
+<ul>
+<li>Yahoo!做出了Pig， 把PigLatin翻成一堆MapReduce Job</li>
+<li>Facebook做出了Hive，把HiveQL翻成一堆MapReduce Job</li>
+</ul>
+<h3 id="Hadoop战队">Hadoop战队</h3>
+<p>目前有的Hadoop Distribution有：</p>
+<ul>
+<li>Cloudera 有 Cloudera Distribution for Hadoop (CDH)</li>
+<li>Oracle 有 Oracle Big Data Appliance Intel 以前有 Intel Distribution for Hadoop (IDH)，現在是直接與 Cloudera 合作 </li>
+<li>Hortonworks 有 Hortonworks Data Platform (HDP)</li>
+<li>Microsoft 有 Microsoft HDInsight </li>
+<li>MapR 有 MapR Distribution for Apache Hadoop (M3, M5, M7) … 喜歡 Make (自造者運動) 的人還是可以去 Apache BigTop 網站自行下載組裝。</li>
+<li>…</li>
+</ul>
+<h3 id="Hadoop富二代">Hadoop富二代</h3>
+<p>和Hadoop一起解决Big Data问题</p>
+<pre><code>Parallel Processing： Tez Spark <span class="keyword">...</span> 
+User Interface： Hue 
+SQL on Hadoop： Impala Presto Drill/Dremel/BigQuery <span class="keyword">...</span> 
+Data Collector： Flume Chukwa Scribe <span class="keyword">...</span> 
+Machine Learning： Mahout <span class="keyword">...</span> 
+</code></pre><h3 id="Hadoop小圈圈">Hadoop小圈圈</h3>
+<p>一派是Hortonworks：</p>
+<ul>
+<li>Microsoft(生命共同体)</li>
+<li>。。。</li>
+</ul>
+<p>一派是Cloudera：</p>
+<ul>
+<li>Intel</li>
+<li>DataBricks(Spark)</li>
+<li>IBM</li>
+<li>Oracle</li>
+<li>MapR</li>
+<li>。。。</li>
+</ul>
+<h3 id="喝咖啡骑大象建议">喝咖啡骑大象建议</h3>
+<h4 id="Programming">Programming</h4>
+<p>Java：</p>
+<ul>
+<li>曾经是MapReduce心里的唯一</li>
+<li>现在是YARN里面人多语言之一</li>
+<li><a href="http://svn.apache.org/repos/asf/hadoop/common/trunk/hadoop-mapreduce-project/hadoop-mapreduce-examples/" target="_blank" rel="external">Hadoop MapReduce Examples</a> 是最基本的范例</li>
+<li>popcorny提供了一个方便好用的<a href="https://github.com/popcornylu/hadoop-wordcount" target="_blank" rel="external">Gradle的例子wordcount</a></li>
+</ul>
+<p>因为支援<a href="http://hadoop.apache.org/docs/r1.2.1/streaming.html" target="_blank" rel="external">Hadoop Streaming</a>的关系，其它语言也可以了，例如：</p>
+<ul>
+<li>Python</li>
+<li>Ruby</li>
+<li>C/C++</li>
+<li>C#</li>
+<li>Perl</li>
+<li>Bash</li>
+<li>…</li>
+</ul>
+<h4 id="1分钟在线上直接玩Hadoop">1分钟在线上直接玩Hadoop</h4>
+<p>URL为<a href="http://gethue.com" target="_blank" rel="external">Hue.com</a><br>Demo为<a href="http://demo.gethue.com" target="_blank" rel="external">demo</a></p>
+<h4 id="5分钟在本机建立一个Hadoop_VM">5分钟在本机建立一个Hadoop VM</h4>
+<p>需要在<a href="http://hortonworks.com" target="_blank" rel="external">Hortonworks</a>下载它的sandbox</p>
+<h4 id="10分钟在云端建立一个Hadoop_Cluster">10分钟在云端建立一个Hadoop Cluster</h4>
+<p>需要使用Microsoft提供的Azure</p>
+<h3 id="总结">总结</h3>
+<p>I should start using hadoop!</p>
+<h3 id="上面的知识都来自Slide上面的文章，感谢作者的知识分享。">上面的知识都来自Slide上面的文章，感谢作者的知识分享。</h3>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -180,7 +306,7 @@ http://www.slideshare.net/KuoChunSu/hadoop-the-apple-of-our-eyes-hadoop在slide 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)"><span class="toc-number">1.</span> <span class="toc-text">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#_"><span class="toc-number">2.</span> <span class="toc-text"> </span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hadoop,_the_Apple_of_Our_Eyes_(這些年，我們一起追的_Hadoop)"><span class="toc-number">1.</span> <span class="toc-text">Hadoop, the Apple of Our Eyes (這些年，我們一起追的 Hadoop)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文章中提到的大纲"><span class="toc-number">2.</span> <span class="toc-text">文章中提到的大纲</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#进击的Hadoop"><span class="toc-number">2.1.</span> <span class="toc-text">进击的Hadoop</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hadoop_1-x_架构中的限制："><span class="toc-number">2.1.1.</span> <span class="toc-text">Hadoop 1.x 架构中的限制：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hadoop_2-x_架构"><span class="toc-number">2.1.2.</span> <span class="toc-text">Hadoop 2.x 架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-x架构流程"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.x架构流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MapReduce（MRv2）分式优点"><span class="toc-number">2.1.4.</span> <span class="toc-text">MapReduce（MRv2）分式优点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#YARN_-_Yet_Another_Resource_Negotiator"><span class="toc-number">2.1.5.</span> <span class="toc-text">YARN - Yet Another Resource Negotiator</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop家族"><span class="toc-number">2.2.</span> <span class="toc-text">Hadoop家族</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HCatlalog"><span class="toc-number">2.2.1.</span> <span class="toc-text">HCatlalog</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Hive与Pig"><span class="toc-number">2.2.2.</span> <span class="toc-text">Hive与Pig</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop战队"><span class="toc-number">2.3.</span> <span class="toc-text">Hadoop战队</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop富二代"><span class="toc-number">2.4.</span> <span class="toc-text">Hadoop富二代</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hadoop小圈圈"><span class="toc-number">2.5.</span> <span class="toc-text">Hadoop小圈圈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#喝咖啡骑大象建议"><span class="toc-number">2.6.</span> <span class="toc-text">喝咖啡骑大象建议</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Programming"><span class="toc-number">2.6.1.</span> <span class="toc-text">Programming</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1分钟在线上直接玩Hadoop"><span class="toc-number">2.6.2.</span> <span class="toc-text">1分钟在线上直接玩Hadoop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5分钟在本机建立一个Hadoop_VM"><span class="toc-number">2.6.3.</span> <span class="toc-text">5分钟在本机建立一个Hadoop VM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10分钟在云端建立一个Hadoop_Cluster"><span class="toc-number">2.6.4.</span> <span class="toc-text">10分钟在云端建立一个Hadoop Cluster</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.7.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#上面的知识都来自Slide上面的文章，感谢作者的知识分享。"><span class="toc-number">2.8.</span> <span class="toc-text">上面的知识都来自Slide上面的文章，感谢作者的知识分享。</span></a></li></ol></li></ol>
  
   </div>
 
