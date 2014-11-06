@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-05T16:08:53.781Z</updated>
+  <updated>2014-11-06T15:58:13.435Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -13,6 +13,29 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hadoop上机操作部分]]></title>
+    <link href="http://www.ifzer.com/2014/11/07/hadoop_action01/"/>
+    <id>http://www.ifzer.com/2014/11/07/hadoop_action01/</id>
+    <published>2014-11-06T16:25:18.000Z</published>
+    <updated>2014-11-06T15:58:03.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="在网上找的两个很适合刚学Hadoop的开源项目">在网上找的两个很适合刚学Hadoop的开源项目</h3>
+<ol>
+<li>以地震的数据进行MapReduce，可分析出各个城市的最大，最小震级。源代码<a href="https://github.com/umermansoor/hadoop-java-example.git" target="_blank" rel="external">地址</a>，真的是挺简单的入门例子，适合我这种刚学的人。</li>
+<li>这个例子是统计单词的出现次数的，<a href="https://github.com/popcornylu/hadoop-wordcount.git" target="_blank" rel="external">Word Count</a>。和上面的震级的例子一样，很简单，也适合我这种刚学Hadoop的，不过这个项目使用的是Gradle进行的项目构建，所以你需要在本机上也安装Gradle的构建工具。</li>
+</ol>
+<h3 id="_"> </h3>
+]]></content>
+    
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/tags/hadoop/"/>
+    
+      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
+    
+      <category term="hadoop" scheme="http://www.ifzer.com/categories/hadoop/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Hadoop学习-On slide share]]></title>
