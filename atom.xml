@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-06T15:58:13.435Z</updated>
+  <updated>2014-11-06T16:22:50.312Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -19,13 +19,48 @@
     <link href="http://www.ifzer.com/2014/11/07/hadoop_action01/"/>
     <id>http://www.ifzer.com/2014/11/07/hadoop_action01/</id>
     <published>2014-11-06T16:25:18.000Z</published>
-    <updated>2014-11-06T15:58:03.000Z</updated>
+    <updated>2014-11-06T16:22:33.000Z</updated>
     <content type="html"><![CDATA[<h3 id="在网上找的两个很适合刚学Hadoop的开源项目">在网上找的两个很适合刚学Hadoop的开源项目</h3>
 <ol>
 <li>以地震的数据进行MapReduce，可分析出各个城市的最大，最小震级。源代码<a href="https://github.com/umermansoor/hadoop-java-example.git" target="_blank" rel="external">地址</a>，真的是挺简单的入门例子，适合我这种刚学的人。</li>
 <li>这个例子是统计单词的出现次数的，<a href="https://github.com/popcornylu/hadoop-wordcount.git" target="_blank" rel="external">Word Count</a>。和上面的震级的例子一样，很简单，也适合我这种刚学Hadoop的，不过这个项目使用的是Gradle进行的项目构建，所以你需要在本机上也安装Gradle的构建工具。</li>
 </ol>
-<h3 id="_"> </h3>
+<h3 id="命令行操作HDFS的上传文件">命令行操作HDFS的上传文件</h3>
+<p>参考的是Hadoop的<a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/SingleCluster.html" target="_blank" rel="external">文档</a>的#Execution部分</p>
+<ol>
+<li><p>格式化文件系统</p>
+<pre><code> bin/hdfs namenode -<span class="built_in">format</span>
+</code></pre></li>
+<li><p>启动NameNode后台程序和DataNode：</p>
+<pre><code> sbin/start-dfs.<span class="keyword">sh</span>
+</code></pre></li>
+<li><p>在浏览器中可以查看NameNode，<a href="http://localhost:50070" target="_blank" rel="external">URL</a></p>
+</li>
+<li><p>新建HDFS目录以进行MapReduce工作：</p>
+<pre><code> bin/hdfs dfs -mkdir /<span class="literal">user</span>
+ bin/hdfs dfs -mkdir /<span class="literal">user</span>/&lt;username&gt;
+</code></pre></li>
+<li><p>复制文件到HDFS中：</p>
+<pre><code> bin<span class="regexp">/hdfs dfs -put etc/</span>hadoop <span class="regexp">/user/</span>yourusername<span class="regexp">/hadoop/i</span>nput
+ <span class="comment">//如果没有hadoop和input目录，请按第四步进行创建</span>
+</code></pre></li>
+<li><p>运行Hadoop提供的例子：</p>
+<pre><code> bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-<span class="number">2.5</span>.<span class="number">1</span>.jar <span class="keyword">grep</span> <span class="built_in">input</span> output
+ //这里的<span class="built_in">input</span> &amp;&amp; output 也是要存在于HDFS中的，如果没有要自己创建，<span class="built_in">input</span>需要指定到具体的文件，例如hdfs-site.xml
+ //这里运行的完了后，发现output/part-<span class="keyword">r</span>-<span class="number">00000</span>中的输出为<span class="number">0</span>字节，好奇怪的，感觉是文件中没有这样的字符，然后没有<span class="keyword">grep</span>出来
+</code></pre></li>
+<li><p>检查output文件，可以下载下来查看，也可以在DFS中查看</p>
+<pre><code> bin/hdfs dfs -<span class="built_in">get</span> output output
+ <span class="keyword">cat</span> output/*
+ // -<span class="built_in">get</span> output 这里的output在HDFS中要指定全路径
+
+ bin/hdfs dfs -<span class="keyword">cat</span>/more/less... output/*
+</code></pre></li>
+<li><p>上面的都完成了，可以停止DFS了</p>
+<pre><code> sbin/<span class="keyword">stop</span>-dfs.<span class="keyword">sh</span>
+</code></pre></li>
+</ol>
+<h3 id="今天的学习到此。">今天的学习到此。</h3>
 ]]></content>
     
     
