@@ -4,21 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Nightmares from the Deep被诅咒的心,典藏版 HD | ifzer</title>
+    <title>Hadoop eclipse 插件 | ifzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="bangsen yin">
     
-    <meta name="description" content="Nightmares from the Deep™: 被诅咒的心,典藏版 HD
-昨天在新iPad air2上下载了这个游戏，今天上午9点多开始玩，直到2点多过关了。
-对游戏里面的提示，感到非常的喜欢，因为提示的十分到位。
-需要吐槽的是它里面的找东西，每次都是乱点，瞎点，误打误撞才解开了，感觉这个找东">
+    <meta name="description" content="前提准备过程
+
+apache ant,需要用ant来构建插件，在这里我使用brew install ant进行了安装，安装成功后ant -version后输出版本信息，则表示安装成功了：
+ ant -version
+ Apache Ant(TM) version 1.9.4 compiled on ">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="ivan_ifzer" />
-    <meta name="twitter:title" content="Nightmares from the Deep被诅咒的心,典藏版 HD | ifzer" />
+    <meta name="twitter:title" content="Hadoop eclipse 插件 | ifzer" />
       
     
     
@@ -78,14 +79,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/08/nightmares_from_the_deep/" title="Nightmares from the Deep被诅咒的心,典藏版 HD" itemprop="url">Nightmares from the Deep被诅咒的心,典藏版 HD</a>
+      <a href="/2014/11/11/hadoop_eclipse_plugin/" title="Hadoop eclipse 插件" itemprop="url">Hadoop eclipse 插件</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/110769025630537500000?rel=author" title="bangsen yin" target="_blank" itemprop="author">bangsen yin</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-08T15:55:18.000Z" itemprop="datePublished">Published 11月 8 2014</time>
+    <time datetime="2014-11-11T03:11:11.000Z" itemprop="datePublished">Published 11月 11 2014</time>
     
   </p>
 </header>
@@ -95,27 +96,35 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nightmares_from_the_Deep™:_被诅咒的心,典藏版_HD"><span class="toc-number">1.</span> <span class="toc-text">Nightmares from the Deep™: 被诅咒的心,典藏版 HD</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前提准备过程"><span class="toc-number">1.</span> <span class="toc-text">前提准备过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源代码地址"><span class="toc-number">2.</span> <span class="toc-text">源代码地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用ant进行构建"><span class="toc-number">3.</span> <span class="toc-text">使用ant进行构建</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="Nightmares_from_the_Deep™:_被诅咒的心,典藏版_HD"><a href="https://itunes.apple.com/cn/app/nightmares-from-deep-bei-zu/id536578584?mt=8" target="_blank" rel="external">Nightmares from the Deep™: 被诅咒的心,典藏版 HD</a></h3>
-<p>昨天在新iPad air2上下载了这个游戏，今天上午9点多开始玩，直到2点多过关了。</p>
-<p>对游戏里面的提示，感到非常的喜欢，因为提示的十分到位。</p>
-<p>需要吐槽的是它里面的找东西，每次都是乱点，瞎点，误打误撞才解开了，感觉这个找东西的Puzzle还是弱智了些，其它的需要动脑的Puzzle个人比较喜欢，虽然有的时间会用的多些，但还是挺喜欢的。另外剧情比较老套，为了爱情而复仇。</p>
+		<h3 id="前提准备过程">前提准备过程</h3>
+<ol>
+<li><p>apache <a href="http://ant.apache.org" target="_blank" rel="external">ant</a>,需要用ant来构建插件，在这里我使用<code>brew install ant</code>进行了安装，安装成功后<code>ant -version</code>后输出版本信息，则表示安装成功了：</p>
+<pre><code> ant -<span class="built_in">version</span>
+ Apache Ant(TM) <span class="built_in">version</span> <span class="number">1.9</span><span class="number">.4</span> compiled <span class="command"><span class="keyword">on</span> <span class="title">April</span> <span class="title">29</span> <span class="title">2014</span></span>
+</code></pre></li>
+</ol>
+<h3 id="源代码地址">源代码地址</h3>
+<p><a href="https://github.com/winghc/hadoop2x-eclipse-plugin" target="_blank" rel="external">hadoop2x-eclipse-plugin</a></p>
+<p>里面的realease目录中有已经生成好的jar包，复制这个jar到eclipse的plugins中就可以了。</p>
+<h3 id="使用ant进行构建">使用ant进行构建</h3>
+<p>本地下载的Hadoop的版本是2.5.1，所以在进行ant build的命令时，在Hadoop的 libexec/share/hadoop/common/lib/下面，好多的依赖jar包都找不到，所以就直接把realease目录中有已经生成好的jar包，复制到eclipse的plugins里面去了。重新启动eclipse后，可以cmd+n,选MapReduce项目，就能做Hadoop的开发了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/game/">game</a>
+  <a class="article-category-link" href="/categories/java/">java</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/game/">game</a>
+  <span></span> <a href="/tags/hadoop/">hadoop</a><a href="/tags/eclipse/">eclipse</a><a href="/tags/plugin/">plugin</a>
   </div>
 
 
@@ -152,19 +161,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/11/hadoop_eclipse_plugin/" title="Hadoop eclipse 插件">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Hadoop eclipse 插件</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/11/07/hadoop_action01/"  title="hadoop上机操作部分">
+<a href="/2014/11/08/nightmares_from_the_deep/"  title="Nightmares from the Deep被诅咒的心,典藏版 HD">
  <strong>下一篇：</strong><br/> 
- <span>hadoop上机操作部分
+ <span>Nightmares from the Deep被诅咒的心,典藏版 HD
 </span>
 </a>
 </div>
@@ -183,7 +184,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Nightmares_from_the_Deep™:_被诅咒的心,典藏版_HD"><span class="toc-number">1.</span> <span class="toc-text">Nightmares from the Deep™: 被诅咒的心,典藏版 HD</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前提准备过程"><span class="toc-number">1.</span> <span class="toc-text">前提准备过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源代码地址"><span class="toc-number">2.</span> <span class="toc-text">源代码地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用ant进行构建"><span class="toc-number">3.</span> <span class="toc-text">使用ant进行构建</span></a></li></ol>
  
   </div>
 
