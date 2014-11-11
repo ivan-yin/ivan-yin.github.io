@@ -103,9 +103,11 @@ apache ant,需要用ant来构建插件，在这里我使用brew install ant进�
 <p>apache <a href="http://ant.apache.org" target="_blank" rel="external">ant</a>,需要用ant来构建插件，在这里我使用<code>brew install ant</code>进行了安装，安装成功后<code>ant -version</code>后输出版本信息，则表示安装成功了：</p>
 <pre><code>    ant -<span class="built_in">version</span>
     Apache Ant(TM) <span class="built_in">version</span> <span class="number">1.9</span><span class="number">.4</span> compiled <span class="command"><span class="keyword">on</span> <span class="title">April</span> <span class="title">29</span> <span class="title">2014</span></span>
-</code></pre><h3 id="源代码地址">源代码地址</h3>
+</code></pre><hr>
+<h3 id="源代码地址">源代码地址</h3>
 <p><a href="https://github.com/winghc/hadoop2x-eclipse-plugin" target="_blank" rel="external">hadoop2x-eclipse-plugin</a></p>
 <p>里面的realease目录中有已经生成好的jar包，复制这个jar到eclipse的plugins中就可以了。</p>
+<hr>
 <h3 id="使用ant进行构建">使用ant进行构建</h3>
 <p>本地下载的Hadoop的版本是2.5.1，所以在进行ant build的命令时，在Hadoop的 libexec/share/hadoop/common/lib/下面，好多的依赖jar包都找不到，所以就直接把realease目录中有已经生成好的jar包，复制到eclipse的plugins里面去了。重新启动eclipse后，可以cmd+n,选MapReduce项目，就能做Hadoop的开发了。</p>
   
