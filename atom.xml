@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2014-11-11T07:37:35.961Z</updated>
+  <updated>2014-12-11T10:41:37.457Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -13,6 +13,40 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[积累开发中经常用到的代码]]></title>
+    <link href="http://www.ifzer.com/2014/12/11/accumulate_it/"/>
+    <id>http://www.ifzer.com/2014/12/11/accumulate_it/</id>
+    <published>2014-12-11T11:25:58.000Z</published>
+    <updated>2014-12-11T10:40:53.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="积累">积累</h3>
+<p>工作了这么多年，感觉自己好像没有积累下来下工具类，可能与之前一直没有使用自己的电脑开发有关吧。但这可能也只是个人借口。从现在做起，把有用的或经常需要用的积累下来，<strong>just do it</strong></p>
+<h3 id="工具-eclipse">工具-eclipse</h3>
+<p>使用Eclipse开发，现在把常用的code template一些常用的插件记录了下来了。</p>
+<ol>
+<li>svn plugin <a href="http://eclipse.org/subversive/" target="_blank" rel="external">subversive</a></li>
+<li>color plugin <a href="http://eclipsecolorthemes.org/?view=plugin" target="_blank" rel="external">colortheme</a>, 自己使用的是Oblivion，感觉这个比较适合自己的眼睛</li>
+<li>code recommender, 这个插件是在juno的eclipse中自带的，会提供个百分比，显示哪个方法使用的多，使用的最多的排在最上面</li>
+<li>findbug ,用于查找出代码中潜在的bug</li>
+<li>…</li>
+</ol>
+<h3 id="工具-evernote">工具-evernote</h3>
+<p>使用evernote记录了好多的东西，有好多学习方面的有用的资料，但好久没有进行过整理了，这些笔记需要经常整理，这样才能把知识吸收，不然只是一个资料库而已</p>
+<h3 id="工具-markdown">工具-markdown</h3>
+<p>使用markdown记录下各种自己写出来的文章，用以放在github pages中显示出来，慢慢积累</p>
+<h3 id="代码-使用GitHub">代码-使用GitHub</h3>
+<p>目前将常用的代码放在了github上的tools4java项目中，<a href="https://github.com/ivan-yin/tools4java.git" target="_blank" rel="external">tools4java</a>，这个项目中记录下了常用的java代码。</p>
+]]></content>
+    
+    
+      <category term="utils" scheme="http://www.ifzer.com/tags/utils/"/>
+    
+      <category term="code" scheme="http://www.ifzer.com/tags/code/"/>
+    
+      <category term="blog" scheme="http://www.ifzer.com/categories/blog/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Hadoop eclipse 插件]]></title>
