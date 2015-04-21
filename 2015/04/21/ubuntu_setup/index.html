@@ -4,21 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>hadoop hdfs学习 | ifzer</title>
+    <title>post | ifzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="bangsen yin">
     
-    <meta name="description" content="HDFS
-HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。
-HDFS的特点
-HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-ma">
+    <meta name="description" content="Ubuntu 开发环境 setup
+设置oh-my-zsh
+
+具体的可以查看池建强的博客
+sudo apt-get install zsh
+改为默认sh, chsh -s /bin/zsh, 如果不启作用, 我是重启了电脑可以
+安装oh my zsh wget https://github.com/">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="ivan_ifzer" />
-    <meta name="twitter:title" content="hadoop hdfs学习 | ifzer" />
+    <meta name="twitter:title" content="post | ifzer" />
       
     
     
@@ -78,14 +81,14 @@ HDFS和其它分布式文件系统的最大不同是“一次写入，多次读�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/04/hadoop_hdfs/" title="hadoop hdfs学习" itemprop="url">hadoop hdfs学习</a>
+      <a href="/2015/04/21/ubuntu_setup/" title="post" itemprop="url">post</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/110769025630537500000?rel=author" title="bangsen yin" target="_blank" itemprop="author">bangsen yin</a>
 		
   <p class="article-time">
-    <time datetime="2014-11-04T15:55:58.000Z" itemprop="datePublished">Published 11月 4 2014</time>
+    <time datetime="2015-04-21T12:33:18.000Z" itemprop="datePublished">Published 4月 21 2015</time>
     
   </p>
 </header>
@@ -95,43 +98,48 @@ HDFS和其它分布式文件系统的最大不同是“一次写入，多次读�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的特点"><span class="toc-number">1.1.</span> <span class="toc-text">HDFS的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的API接口"><span class="toc-number">1.2.</span> <span class="toc-text">HDFS的API接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章大部分摘自IBM-hdfs"><span class="toc-number">1.3.</span> <span class="toc-text">文章大部分摘自IBM-hdfs</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu_开发环境_setup"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu 开发环境 setup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置oh-my-zsh"><span class="toc-number">1.1.</span> <span class="toc-text">设置oh-my-zsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GIT"><span class="toc-number">1.2.</span> <span class="toc-text">安装GIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Nodejs_&&_npm"><span class="toc-number">1.3.</span> <span class="toc-text">安装Nodejs && npm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装mysql"><span class="toc-number">1.4.</span> <span class="toc-text">安装mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PostgreSQL"><span class="toc-number">1.5.</span> <span class="toc-text">安装PostgreSQL</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="HDFS">HDFS</h2>
-<p>HDFS是Apache Hadoop项目中的两个核心组件中的一个，另外一个是MapReduce，HDFS的全名是Hadoop Distributed File System。</p>
-<h3 id="HDFS的特点">HDFS的特点</h3>
-<p>HDFS和其它分布式文件系统的最大不同是“一次写入，多次读取（write-once-read-many）”，另外的特点有：</p>
+		<h2 id="Ubuntu_开发环境_setup">Ubuntu 开发环境 setup</h2>
+<h3 id="设置oh-my-zsh">设置oh-my-zsh</h3>
 <ol>
-<li>通过HDFS心跳检测故障，判断Data node是否死亡，以及强大的自动复制Data node，以达到很强的容错性</li>
-<li>通过MapReduce流进行数据访问</li>
-<li>简单可靠的聚合模型</li>
-<li>处理逻辑接近数据，而不是数据接近处理逻辑（这一段需要理解）</li>
-<li>跨异构普通硬件和操作系统的可移植性</li>
-<li>可靠存储和处理大量数据的可伸缩性</li>
-<li>通过跨多个普通个人计算机集群分布数据和处理来节约成本</li>
-<li>通过分布数据和逻辑到数据所在的多个节点上进行平行处理来提高效率</li>
-<li>通过自动维护多个数据副本和在故障发生时自动重新部署处理逻辑来实现可靠性</li>
+<li>具体的可以查看<a href="http://macshuo.com/?p=676" target="_blank" rel="external">池建强的博客</a></li>
+<li>sudo apt-get install zsh</li>
+<li>改为默认sh, chsh -s /bin/zsh, 如果不启作用, 我是重启了电脑可以</li>
+<li>安装oh my zsh <code>wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</code></li>
+<li>自定义配置及使用</li>
 </ol>
-<hr>
-<h3 id="HDFS的API接口">HDFS的API接口</h3>
-<p>最重要的一般是HDFS shell commands <code>bin/hdfs dfs -help</code>,里面会有一般性的Unix类的操作，例如chown,chmod,cp,mv,rm……, 更多的可以查看<a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="external">File System Shell Guide</a><br>DFSAdmin 用于管理HDFS集群的命令集<br>Name node &amp; Data node , Name用于管理文件系统名称空间操作，比如打开，关闭及重命名文件和目录，还负责将数据块映射到Data node, data node 根据name node的指令创建，删除和复制数据块。</p>
-<h3 id="文章大部分摘自IBM-hdfs">文章大部分摘自<a href="http://www.ibm.com/developerworks/cn/web/wa-introhdfs/#authorN10022" target="_blank" rel="external">IBM-hdfs</a></h3>
-<p>原文写的很好，为了加深理解，所以摘录些下来，以加深自己的认识，特以记之。</p>
+<h3 id="安装GIT">安装GIT</h3>
+<ol>
+<li>GIT现在使用的人非常多, 而且方便过SVN, 并且太多公司和个人都将软件放在github上, 我们还有什么理由不用它呢</li>
+<li>安装非常简单, <code>sudo apt-get install git</code></li>
+<li><p>配置你的git用户名和密码, 以及ssh. <code>git config --global color.ui ture ; git config --global user.name &quot;your name&quot; ; git config --global user.email &quot;your@email.com; ssh-keygen -t rsa -C &quot;your@email.com</code></p>
+</li>
+<li><p>增加到你的SSH里面, <a href="https://github.com/settings/ssh" target="_blank" rel="external">git_ssh</a>, <code>cat ~/.ssh/id_rsa.pub</code> ,复制控制台的输出到上面的SSH</p>
+</li>
+<li>测试是否成功, <code>ssh -T git@github.com</code>, 成功的话会返回<code>XXX! you&#39;ve successfully</code></li>
+</ol>
+<h3 id="安装Nodejs_&amp;&amp;_npm">安装Nodejs &amp;&amp; npm</h3>
+<p>使用下面的命令依次安装<br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br><code>sudo apt-get install npm</code></p>
+<h3 id="安装mysql">安装mysql</h3>
+<p><code>sudo apt-get install mysql-client-5.5. mysql-server-5.5</code>, 这里需要注意的是要指定mysql 的版本号, 否则可能出错 , 中间会提示输入root的密码</p>
+<h3 id="安装PostgreSQL">安装PostgreSQL</h3>
+<p><code>sudo apt-get install postgresql-common</code><br><code>sudo apt-get install postgresql-9.3 libpg-dev</code></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/hadoop/">hadoop</a>
+  <a class="article-category-link" href="/categories/blog/">blog</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/hadoop/">hadoop</a><a href="/tags/java/">java</a>
+  <span></span> <a href="/tags/ubuntu/">ubuntu</a>
   </div>
 
 
@@ -168,19 +176,11 @@ HDFS和其它分布式文件系统的最大不同是“一次写入，多次读�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/11/06/hadoop_slide/" title="Hadoop学习-On slide share">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Hadoop学习-On slide share</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/11/02/mac_git_save_password/"  title="如何在MAC上保存Git的密码">
+<a href="/2015/04/21/ubuntu_u_pan/"  title="在mac下制作ubuntu的启动盘">
  <strong>下一篇：</strong><br/> 
- <span>如何在MAC上保存Git的密码
+ <span>在mac下制作ubuntu的启动盘
 </span>
 </a>
 </div>
@@ -199,7 +199,7 @@ HDFS和其它分布式文件系统的最大不同是“一次写入，多次读�
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#HDFS"><span class="toc-number">1.</span> <span class="toc-text">HDFS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的特点"><span class="toc-number">1.1.</span> <span class="toc-text">HDFS的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HDFS的API接口"><span class="toc-number">1.2.</span> <span class="toc-text">HDFS的API接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文章大部分摘自IBM-hdfs"><span class="toc-number">1.3.</span> <span class="toc-text">文章大部分摘自IBM-hdfs</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ubuntu_开发环境_setup"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu 开发环境 setup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置oh-my-zsh"><span class="toc-number">1.1.</span> <span class="toc-text">设置oh-my-zsh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装GIT"><span class="toc-number">1.2.</span> <span class="toc-text">安装GIT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Nodejs_&&_npm"><span class="toc-number">1.3.</span> <span class="toc-text">安装Nodejs && npm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装mysql"><span class="toc-number">1.4.</span> <span class="toc-text">安装mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PostgreSQL"><span class="toc-number">1.5.</span> <span class="toc-text">安装PostgreSQL</span></a></li></ol></li></ol>
  
   </div>
 

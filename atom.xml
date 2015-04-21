@@ -4,7 +4,7 @@
   <subtitle><![CDATA[every one to be ifzer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ifzer.com/"/>
-  <updated>2015-04-21T10:52:46.828Z</updated>
+  <updated>2015-04-21T11:59:41.229Z</updated>
   <id>http://www.ifzer.com/</id>
   
   <author>
@@ -13,6 +13,46 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[post]]></title>
+    <link href="http://www.ifzer.com/2015/04/21/ubuntu_setup/"/>
+    <id>http://www.ifzer.com/2015/04/21/ubuntu_setup/</id>
+    <published>2015-04-21T12:33:18.000Z</published>
+    <updated>2015-04-21T11:59:24.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="Ubuntu_开发环境_setup">Ubuntu 开发环境 setup</h2>
+<h3 id="设置oh-my-zsh">设置oh-my-zsh</h3>
+<ol>
+<li>具体的可以查看<a href="http://macshuo.com/?p=676" target="_blank" rel="external">池建强的博客</a></li>
+<li>sudo apt-get install zsh</li>
+<li>改为默认sh, chsh -s /bin/zsh, 如果不启作用, 我是重启了电脑可以</li>
+<li>安装oh my zsh <code>wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh</code></li>
+<li>自定义配置及使用</li>
+</ol>
+<h3 id="安装GIT">安装GIT</h3>
+<ol>
+<li>GIT现在使用的人非常多, 而且方便过SVN, 并且太多公司和个人都将软件放在github上, 我们还有什么理由不用它呢</li>
+<li>安装非常简单, <code>sudo apt-get install git</code></li>
+<li><p>配置你的git用户名和密码, 以及ssh. <code>git config --global color.ui ture ; git config --global user.name &quot;your name&quot; ; git config --global user.email &quot;your@email.com; ssh-keygen -t rsa -C &quot;your@email.com</code></p>
+</li>
+<li><p>增加到你的SSH里面, <a href="https://github.com/settings/ssh" target="_blank" rel="external">git_ssh</a>, <code>cat ~/.ssh/id_rsa.pub</code> ,复制控制台的输出到上面的SSH</p>
+</li>
+<li>测试是否成功, <code>ssh -T git@github.com</code>, 成功的话会返回<code>XXX! you&#39;ve successfully</code></li>
+</ol>
+<h3 id="安装Nodejs_&amp;&amp;_npm">安装Nodejs &amp;&amp; npm</h3>
+<p>使用下面的命令依次安装<br><code>sudo apt-get update</code><br><code>sudo apt-get install nodejs</code><br><code>sudo apt-get install npm</code></p>
+<h3 id="安装mysql">安装mysql</h3>
+<p><code>sudo apt-get install mysql-client-5.5. mysql-server-5.5</code>, 这里需要注意的是要指定mysql 的版本号, 否则可能出错 , 中间会提示输入root的密码</p>
+<h3 id="安装PostgreSQL">安装PostgreSQL</h3>
+<p><code>sudo apt-get install postgresql-common</code><br><code>sudo apt-get install postgresql-9.3 libpg-dev</code></p>
+]]></content>
+    
+    
+      <category term="ubuntu" scheme="http://www.ifzer.com/tags/ubuntu/"/>
+    
+      <category term="blog" scheme="http://www.ifzer.com/categories/blog/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[在mac下制作ubuntu的启动盘]]></title>
@@ -864,64 +904,6 @@ Java home: /Library/Java/JavaVirtualMachines/jdk1<span class="number">.7</span><
 Default locale: en_US, <span class="built_in">platform</span> encoding: UTF-<span class="number">8</span>
 OS name: <span class="string">"mac os x"</span>, <span class="built_in">version</span>: <span class="string">"10.9.4"</span>, arch: <span class="string">"x86_64"</span>, family: <span class="string">"mac"</span>
 </code></pre><p>确保你已经安装了Maven 3 或更高的。如果Maven 命令在你的电脑上是无效的， 请按下面的指南进行安装 ： <a href="http://maven.apache.org/guides/getting-started" target="_blank" rel="external">http://maven.apache.org/guides/getting-started</a></p>
-]]></content>
-    
-    
-      <category term="ninja" scheme="http://www.ifzer.com/tags/ninja/"/>
-    
-      <category term="java" scheme="http://www.ifzer.com/tags/java/"/>
-    
-      <category term="framework" scheme="http://www.ifzer.com/tags/framework/"/>
-    
-      <category term="web" scheme="http://www.ifzer.com/tags/web/"/>
-    
-      <category term="ninja_web_framework" scheme="http://www.ifzer.com/categories/ninja-web-framework/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[基本概念：路由-控制器-视图]]></title>
-    <link href="http://www.ifzer.com/2014/09/16/ninja-%E5%BF%8D%E8%80%85java%20web%E6%A1%86%E6%9E%B6-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%EF%BC%9A%E8%B7%AF%E7%94%B1-%E6%8E%A7%E5%88%B6%E5%99%A8-%E8%A7%86%E5%9B%BE/"/>
-    <id>http://www.ifzer.com/2014/09/16/ninja-忍者java web框架-基本概念：路由-控制器-视图/</id>
-    <published>2014-09-16T04:25:58.000Z</published>
-    <updated>2014-09-17T01:41:31.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="路由_a_route">路由 a route</h3>
-<p>路由文件是每个http请求的入口。在这里必须映射一个URL像 /index.html 或者 /person.json 到一些东西在你的应该内部来实际处理些事情。这就是被定义的路由文件。</p>
-<p>按约定每个忍者应用饮食如下的java文件：<code>conf/Routes.java. Routes.java</code> 包含所有的路由为你的应用。</p>
-<p>一个最小的路由文件看起来如下：</p>
-<pre><code>    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Routes</span> <span class="keyword">implements</span> <span class="title">ApplicationRoutes</span> </span>{
-
-    <span class="annotation">@Override</span>
-    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span>(Router router) {
-
-        router.GET().route(<span class="string">"/"</span>).with(ApplicationController.class, <span class="string">"index"</span>);
-
-    }
-}
-</code></pre><p>上面的代码意味着请求到服务器的 <code>/</code> 路径 被 <code>ApplicationController</code> 这个控制器类的 <code>index</code> 方法处理， 但是 <code>ApplicationController</code> 长成什么样呢？</p>
-<hr>
-<h3 id="控制器_a_controller">控制器 a controller</h3>
-<p>控制器只是个简单的java类并且应该被放在package <code>controller</code> 下面<br>    package controllers;</p>
-<pre><code>@Singleton
-<span class="keyword">public</span> <span class="keyword">class</span> ApplicationController {       
-
-    <span class="keyword">public</span> Result <span class="title">index</span>() {
-        <span class="keyword">return</span> Results.html();
-
-    }
-}
-</code></pre><p>控制器方法总是会返回一个 <code>Result</code> 。 <code>Results</code>(多了个s)只是一个小的工具类用来帮助我们更加简单的创建结果。在上例中，应用控制结果为html响应。</p>
-<p>现在我们得到了等式的一边-从忍者到路由到我们的控制器。但是忍者怎么生成这html的输出？</p>
-<h3 id="视图_a_view">视图 a view</h3>
-<p>视图被声明在包 <code>views</code>中。按约定视图与控制器的对应关系总是被放置在 <code>views/CONTROLLER_NAME/METHOD_NAME</code> 。 在我们的例子，这视图将被找到从 <code>views/ApplicationController/index.ftl.html</code> 。</p>
-<p>一个真实的简单视图可以如下：<br><code>&lt;html&gt;
-    &lt;body&gt;
-        &lt;h1&gt;Hello world&lt;/h1&gt;
-    &lt;/body&gt;
-&lt;/html&gt;</code></p>
-<h3 id="总结">总结</h3>
-<p>这是忍者的基本概念， 并且这是所有你需要启动你自己的应用。 忍者的基本概念总是 <code>Route =&gt; Controller =&gt; View</code> 。</p>
-<p>当然视图不仅可以表示为html, 也可以为json 或 xml。 当然你也可以表示你的模式用你的视图。更多关于视图表示的在接下来的文档部分。</p>
 ]]></content>
     
     
