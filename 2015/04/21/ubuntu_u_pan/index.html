@@ -4,18 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>ifzer</title>
+    <title>在mac下制作ubuntu的启动盘 | ifzer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="bangsen yin">
     
-    <meta name="description" content="ifzer , let everyone be i final">
+    <meta name="description" content="主要步骤(详情可见)
+
+下载ubuntu.iso, 转成IMG格式, 在终端(terminal)中输入hdiutil convert -format UDRW -o output.img inputPath
+查询USB设备号, diskutil list, 查看与你USB一样大小的设备
+创建可启动的">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="ivan_ifzer" />
-    <meta name="twitter:title" content="ifzer" />
+    <meta name="twitter:title" content="在mac下制作ubuntu的启动盘 | ifzer" />
       
     
     
@@ -70,186 +74,114 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/21/ubuntu_u_pan/" title="在mac下制作ubuntu的启动盘" itemprop="url">在mac下制作ubuntu的启动盘</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="https://plus.google.com/110769025630537500000?rel=author" title="bangsen yin" target="_blank" itemprop="author">bangsen yin</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-21T12:25:58.000Z" itemprop="datePublished">Published 4月 21 2015</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">Contents</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要步骤(详情可见)"><span class="toc-number">1.</span> <span class="toc-text">主要步骤(详情可见)</span></a></li></ol>
+		
+		</div>
+		
+		<h3 id="主要步骤(详情可见)">主要步骤(<a href="http://www.pc6.com/edu/73966.html" target="_blank" rel="external">详情可见</a>)</h3>
+<ol>
+<li>下载ubuntu.iso, 转成IMG格式, 在终端(terminal)中输入<code>hdiutil convert -format UDRW -o output.img inputPath</code></li>
+<li>查询USB设备号, <code>diskutil list</code>, 查看与你USB一样大小的设备</li>
+<li>创建可启动的USB驱动盘, <code>sudo dd if=/path-to-img-path of=/dev/rdiskN bs=1m</code>, <strong>注意修改N为你的USB号</strong></li>
+<li>弹出USB, 去你要安装的电脑, 设置从USB驱动. 然后可以选择是双系统, 还是只安装Ubuntu</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
 
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/11/02/swift_study_record/" title="记录下swift学习的进度以及所遇到的问题" itemprop="url">
-  
-    <h1 itemprop="name">记录下swift学习的进度以及所遇到的问题</h1>
-    
-     
-           <p itemprop="description" >学习的课本为
-The Swift Programming LanguageCocoaChina精校PDF完整版
-知识点
-问题
-进度
-时间进度 November 2, 2014。将14年9月的练习swift的代码到github仓库中，地址为swiftstart</p>
-        
-    
-    <time datetime="2014-11-02T15:25:58.000Z" itemprop="datePublished">11月 2 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/10/31/how_to_install_hadoop_on_mac_ox_x/" title="如何在MacOSX上安装Hadoop(how to install hadoop on mac os x)" itemprop="url">
-  
-    <h1 itemprop="name">如何在MacOSX上安装Hadoop(how to install hadoop on mac os x)</h1>
-    
-     
-           <p itemprop="description" >如何在MacOSX上安装hadoop
-
-其中一篇文章地址为how-to-install-hadoop-on-mac-os-x
-另外一篇文章的地址为how-to-setup-hadoop-on-mac-os-x-10-9-mavericks， 
-
-本文综合以上两篇文章，经过自己测试</p>
-        
-    
-    <time datetime="2014-10-30T16:25:58.000Z" itemprop="datePublished">10月 31 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/10/30/mac_dev_ready/" title="mac develop setup" itemprop="url">
-  
-    <h1 itemprop="name">mac develop setup</h1>
-    
-     
-           <p itemprop="description" >准备翻译Github上的项目mac_dev_setup
-可以在线查看此文章mac-setup
-发现已经有人翻译一部分了，可以在此查看mac-dev-setup ，所以就不试着翻译了</p>
-        
-    
-    <time datetime="2014-10-29T16:25:58.000Z" itemprop="datePublished">10月 30 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/10/29/learn_css_layout/" title="学习CSS" itemprop="url">
-  
-    <h1 itemprop="name">学习CSS</h1>
-    
-     
-           <p itemprop="description" >CSS基础
-今天在Github上看到一个好的项目csslayoutsite，里面有好多的开发方面的知识，这个网站是学习CSS布局， 跟着一个一个点击下一页，会学习到CSS的相关知识， 在这里可以看到它的目录， 我们可以学习到上面目录上的知识，快快进去上面的网站学习吧。</p>
-        
-    
-    <time datetime="2014-10-29T15:55:58.000Z" itemprop="datePublished">10月 29 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/10/21/command_top/" title="top command on bash" itemprop="url">
-  
-    <h1 itemprop="name">top command on bash</h1>
-    
-     
-           <p itemprop="description" >下午使用了Top，来查看后台提取数据的内存使用情况，一边看着数据的变化，另外一行行的看着man手册的说明， 所以记录下Top的常用命令。
-交互模式
-在Bash中输入top, 这样就进入了交互模式， 交互模式中最常用的是o, O, c。
-o我的理解的order ， 以哪个进行排序，</p>
-        
-    
-    <time datetime="2014-10-21T09:25:58.000Z" itemprop="datePublished">10月 21 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/17/ninja_anatomy/" title="忍者应用结构的剖析-获取开始之三" itemprop="url">
-  
-    <h1 itemprop="name">忍者应用结构的剖析-获取开始之三</h1>
-    
-     
-           <p itemprop="description" >介绍
-忍者做了许多事情，通过约定优于配置。如果事情在正确的地方它将自动工作。
-例如路由为你的应用应该总是在conf/Routes.java.并且html视图总是映射到确定的控制器方法通过它们对应的目录结构。
-约定被详细解释在接下来的文档部分。
-一个例子项目
-下面的树显示一个例子项</p>
-        
-    
-    <time datetime="2014-09-17T05:35:58.000Z" itemprop="datePublished">9月 17 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/17/ninja_setup_your_ide/" title="设置你的IDE-获取开始之二" itemprop="url">
-  
-    <h1 itemprop="name">设置你的IDE-获取开始之二</h1>
-    
-     
-           <p itemprop="description" >只需要导入它
-通过原型创建的忍者应用只是一个简单普通的Maven项目。意味首你可以导入项目到现代的IDE中， 如Eclipse， Netbeans，IntelliJ等等
-如Eclipse可以通过执行：mvn eclipse:clean eclipse:eclipse然后导入项目到</p>
-        
-    
-    <time datetime="2014-09-17T03:35:58.000Z" itemprop="datePublished">9月 17 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/17/ninja_your_first_app/" title="使用忍者创建你的第一个应用-获取开始之一" itemprop="url">
-  
-    <h1 itemprop="name">使用忍者创建你的第一个应用-获取开始之一</h1>
-    
-     
-           <p itemprop="description" >创建第一个应用
-忍者的特性也被称为“Maven archetypes(原型)”。这些原型是蓝图欢允许你生成一个新的项目通过一个单独的命令。
-在忍者的情况中我们建议创建新的忍者项目基于我们的原型“ninja-servlet-archetype-simple”。
-你可以使用原型作为开</p>
-        
-    
-    <time datetime="2014-09-17T03:25:58.000Z" itemprop="datePublished">9月 17 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/17/ninja_getting_start/" title="入门与安装忍者-获取开始之零" itemprop="url">
-  
-    <h1 itemprop="name">入门与安装忍者-获取开始之零</h1>
-    
-     
-           <p itemprop="description" >没有太多的安装
-每个好的手册都需要“安装软件”的部分。但是说真的， 这里没有太多的安装。忍者只需要两个工具就可以运行了：Java(从1.7版本开始) 和 Maven(从3.1.1)。如果你已经安装了这些工具，你可以跳过这篇了。
-安装Java
-忍者使用Java做为编程语言，java</p>
-        
-    
-    <time datetime="2014-09-17T01:25:58.000Z" itemprop="datePublished">9月 17 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/09/16/ninja-忍者java web框架-基本概念：路由-控制器-视图/" title="基本概念：路由-控制器-视图" itemprop="url">
-  
-    <h1 itemprop="name">基本概念：路由-控制器-视图</h1>
-    
-     
-           <p itemprop="description" >路由 a route
-路由文件是每个http请求的入口。在这里必须映射一个URL像 /index.html 或者 /person.json 到一些东西在你的应该内部来实际处理些事情。这就是被定义的路由文件。
-按约定每个忍者应用饮食如下的java文件：conf/Routes.jav</p>
-        
-    
-    <time datetime="2014-09-16T04:25:58.000Z" itemprop="datePublished">9月 16 2014</time>
-  </a>
-</section>
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/blog/">blog</a>
+</div>
 
 
-  <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
-  </nav>
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+1945255" charset="utf-8"></script>      
+
 
 </div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/01/06/yibauzhiyao/"  title="一步之遥">
+ <strong>下一篇：</strong><br/> 
+ <span>一步之遥
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="Show Sidebar"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">Contents</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要步骤(详情可见)"><span class="toc-number">1.</span> <span class="toc-text">主要步骤(详情可见)</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="Hide Sidebar"></a></div>
@@ -417,6 +349,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
@@ -436,11 +370,79 @@ $(document).ready(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"ifzer"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
 
 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
 
 
 
@@ -459,4 +461,4 @@ MathJax.Hub.Config({
    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
   </body>
- </html>
+</html>
